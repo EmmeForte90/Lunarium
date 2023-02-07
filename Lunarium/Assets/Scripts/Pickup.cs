@@ -60,8 +60,10 @@ void Start()
         else if (other.tag == "Player" && !wasCollected && isHeal && !isBullet && !isLifeUp)
         //Se il player tocca la moneta e non è stato collezionata
         {
-            //Se gli HP non sono al massimo la raccoglio altrimenti no
             
+            if(gM.Potions < 6)
+            {
+            //Se gli HP non sono al massimo la raccoglio altrimenti no
             wasCollected = true;
             //La moneta è collezionata
             gM.restoreOnePotion();
@@ -71,6 +73,7 @@ void Start()
             myAnimator.SetTrigger("take");
             //Attiva il suono
             Invoke("takeCoin", loadDelay);
+            }
             
             
         }

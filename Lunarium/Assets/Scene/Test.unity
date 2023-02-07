@@ -37748,6 +37748,7 @@ GameObject:
   - component: {fileID: 1671864023}
   - component: {fileID: 1671864022}
   - component: {fileID: 1671864021}
+  - component: {fileID: 1671864026}
   m_Layer: 3
   m_Name: Lilith
   m_TagString: Player
@@ -37905,9 +37906,11 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   healthBar: {fileID: 8636263284852739728}
+  gM: {fileID: 8636263285274254534}
   maxMana: 100
   currentMana: 100
   manaBar: {fileID: 8636263285026877152}
+  skeletonM: {fileID: 1671864016}
 --- !u!114 &1671864022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37938,6 +37941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 658675b27c61b894caaa45272f8860fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveX: 0
   moveSpeed: 5
   jumpForce: 10
   runMultiplier: 3
@@ -37951,24 +37955,11 @@ MonoBehaviour:
   crouchSpeed: 2
   health: 100
   sceneName: 
-  nextAttackTime: 0
-  attackRate: 2
-  attackCooldown: 0.2
-  comboTimer: 0
-  comboCounter: 0
-  maxCombo: 4
-  shootTimer: 2
-  bullet: {fileID: 2515244540042279052, guid: 69d4c1ca81065d44aadcd71075e4be02, type: 3}
-  slashpoint: {fileID: 723000482}
-  blam: {fileID: 9173311337577857821, guid: 321cbfc0bda51b94e81734a3bcbe971a, type: 3}
-  EvocationSword: {fileID: 3769966992156755340, guid: 7e3990fd17358d847b3b717467390780, type: 3}
-  gun: {fileID: 8636263285275477346}
+  skeletonM: {fileID: 1671864016}
   Circle: {fileID: 8377799538609817746, guid: 36cd24acadc3a3242b08bf90b61abdc4, type: 3}
   circlePoint: {fileID: 8636263283370175430}
   gM: {fileID: 8636263285274254534}
   blockInput: 0
-  skeletonM: {fileID: 1671864016}
-  moveX: 0
   SwSl: {fileID: 957031314347625453}
   Smagic: {fileID: 156929625}
   SRun: {fileID: 101189439}
@@ -38010,6 +38001,38 @@ CapsuleCollider2D:
   m_Offset: {x: -0.18797302, y: 2.4769816}
   m_Size: {x: 1.1969299, y: 5.1055937}
   m_Direction: 0
+--- !u!114 &1671864026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671864015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2878f5c14933b1840acb123213875546, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonM: {fileID: 1671864016}
+  nextAttackTime: 0
+  attackRate: 2
+  attackCooldown: 0.2
+  comboTimer: 0
+  comboCounter: 0
+  maxCombo: 4
+  shootTimer: 2
+  bullet: {fileID: 2515244540042279052, guid: 69d4c1ca81065d44aadcd71075e4be02, type: 3}
+  slashpoint: {fileID: 723000482}
+  blam: {fileID: 9173311337577857821, guid: 321cbfc0bda51b94e81734a3bcbe971a, type: 3}
+  EvocationSword: {fileID: 3769966992156755340, guid: 7e3990fd17358d847b3b717467390780, type: 3}
+  gun: {fileID: 8636263285275477346}
+  gM: {fileID: 8636263285274254534}
+  isAttacking: 0
+  blockInput: 0
+  SwSl: {fileID: 957031314347625453}
+  Smagic: {fileID: 156929625}
+  SRun: {fileID: 101189439}
+  SCrash: {fileID: 1260440074}
 --- !u!1 &1684224769
 GameObject:
   m_ObjectHideFlags: 0
@@ -49087,7 +49110,7 @@ MonoBehaviour:
   additiveMaterial: {fileID: 2100000, guid: 2e8245019faeb8c43b75f9ca3ac8ee34, type: 2}
   multiplyMaterial: {fileID: 2100000, guid: e74a1f8978a7da348a721508d0d58834, type: 2}
   screenMaterial: {fileID: 2100000, guid: bab24c479f34eec45be6ea8595891569, type: 2}
-  initialSkinName: Sword
+  initialSkinName: Dagger
   initialFlipX: 0
   initialFlipY: 0
   startingAnimation: select
@@ -51520,7 +51543,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8636263285275477357}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.8, y: 3.21, z: 0}
+  m_LocalPosition: {x: 3.73, y: 3.21, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children: []

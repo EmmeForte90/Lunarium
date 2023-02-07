@@ -288,17 +288,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 5
   shotgunBullet: 5
-  bombSpeed: 5
+  lanceSpeed: 10
   Explode: {fileID: 3521028388216535397, guid: 73fa29b238860e44a9538824e70af93a, type: 3}
   MPCost: 30
   prefabExp: {fileID: 1887898322871059740, guid: b3af23cb85b0fe34882465c81edbc10e, type: 3}
   LaunchOffset: {x: 0, y: 0, z: 0}
   targetTag: Enemy
-  isNormal: 0
-  isRapid: 0
-  isBomb: 1
-  isTarget: 0
-  isShotgun: 0
+  Dagger: 0
+  Sword: 0
+  Lance: 1
+  Bilama: 0
+  Axe: 0
   rightFace: 0
   SExp: {fileID: 608053826742465972}
   SBomb: {fileID: 2671730910773633916}

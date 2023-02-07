@@ -114,16 +114,16 @@ AnimatorStateMachine:
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: -5008427764868469372}
-    m_Position: {x: 590, y: 180, z: 0}
+    m_Position: {x: 640, y: 80, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 8668425440831926760}
     m_Position: {x: 950, y: 330, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 6461451137684877908}
-    m_Position: {x: 840, y: 190, z: 0}
+    m_Position: {x: 950, y: 190, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 2718255387513190264}
-    m_Position: {x: 370, y: 180, z: 0}
+    m_Position: {x: 390, y: 180, z: 0}
   m_AnyStateTransitions:
   - {fileID: -4691558081012175380}
   - {fileID: 3281724462811512769}
@@ -136,7 +136,13 @@ AnimatorStateMachine:
   - {fileID: -2727459663739403980}
   - {fileID: -281539014634311624}
   m_EntryTransitions: []
-  m_StateMachineTransitions: {}
+  m_StateMachineTransitions:
+  - first: {fileID: -5008427764868469372}
+    second:
+    - {fileID: 4915704990043332196}
+  - first: {fileID: 2718255387513190264}
+    second:
+    - {fileID: -8632430756512049169}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 20, y: 330, z: 0}
   m_EntryPosition: {x: 550, y: 540, z: 0}
@@ -382,6 +388,23 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1109 &-8632430756512049169
+AnimatorTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsFall
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 5598137067328020065}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 1
 --- !u!74 &-8501811360901816027
 AnimationClip:
   m_ObjectHideFlags: 0
@@ -2217,7 +2240,7 @@ AnimatorStateMachine:
   m_AnyStatePosition: {x: 180, y: 160, z: 0}
   m_EntryPosition: {x: 460, y: -200, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
-  m_ParentStateMachinePosition: {x: 620, y: 10, z: 0}
+  m_ParentStateMachinePosition: {x: 530, y: 10, z: 0}
   m_DefaultState: {fileID: -1733498560266867042}
 --- !u!1101 &-4691558081012175380
 AnimatorStateTransition:
@@ -3749,73 +3772,73 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: ComboCounter
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsJumping
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsFall
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Dash
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Crouch
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsRunning
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Attack1
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isShoot
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: TakeDamage
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isDagger
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isSword
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -4429,6 +4452,23 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1109 &4915704990043332196
+AnimatorTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsFall
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 5598137067328020065}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 1
 --- !u!74 &5451700863539194910
 AnimationClip:
   m_ObjectHideFlags: 0
@@ -5003,25 +5043,25 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 5598137067328020065}
-    m_Position: {x: 0, y: 0, z: 0}
+    m_Position: {x: 390, y: -120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2570607123527825950}
-    m_Position: {x: 0, y: 0, z: 0}
+    m_Position: {x: 60, y: -120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3119644298549499236}
-    m_Position: {x: 0, y: 0, z: 0}
+    m_Position: {x: 680, y: -110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5026560026880124088}
-    m_Position: {x: 0, y: 0, z: 0}
+    m_Position: {x: 50, y: 40, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 50, y: 20, z: 0}
+  m_AnyStatePosition: {x: -120, y: 30, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
-  m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
+  m_ParentStateMachinePosition: {x: 700, y: 50, z: 0}
   m_DefaultState: {fileID: 5598137067328020065}
 --- !u!1102 &6498962515432944778
 AnimatorState:

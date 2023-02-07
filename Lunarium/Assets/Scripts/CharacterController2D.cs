@@ -10,6 +10,7 @@ public class CharacterController2D : MonoBehaviour
 {
     [Header("Move")]
 
+    public float moveX;
     [SerializeField] public float moveSpeed = 5f; // velocità di movimento
     [SerializeField] public float jumpForce = 5f; // forza del salto
     [SerializeField] public float runMultiplier = 2f; // moltiplicatore di velocità per la corsa
@@ -39,6 +40,8 @@ public class CharacterController2D : MonoBehaviour
     [Header("HP")]
     [SerializeField]public float health = 100f; // salute del personaggio
     PlayerHealth Less;
+    PlayerAttack Atk;
+
 
 
     [Header("Respawn")]
@@ -48,25 +51,11 @@ public class CharacterController2D : MonoBehaviour
     
     [Header("Animations")]
     private Animator anim; // componente Animator del personaggio
+    public SkeletonMecanim skeletonM;
 
-    [Header("Attacks")]
-    private float currentCooldown; // contatore del cooldown attuale
-    [SerializeField] float nextAttackTime = 0f;
-    [SerializeField] float attackRate = 2f;
-    [SerializeField] public float attackCooldown = 0.5f; // tempo di attesa tra gli attacchi
-    [SerializeField] public float comboTimer = 2f; // tempo per completare una combo
-    [SerializeField] public int comboCounter = 0; // contatore delle combo
-    [SerializeField] public int maxCombo = 4; // numero massimo di combo
-    [SerializeField] public float shootTimer = 2f; // tempo per completare una combo
-    [SerializeField] private GameObject bullet;
-
-    public Transform slashpoint;
 
     [Header("VFX")]
     // Variabile per il gameobject del proiettile
-    [SerializeField] GameObject blam;
-    [SerializeField] GameObject EvocationSword;
-    [SerializeField] public Transform gun;
     [SerializeField] GameObject Circle;
     [SerializeField] public Transform circlePoint;
 
@@ -83,14 +72,11 @@ public class CharacterController2D : MonoBehaviour
     private bool isCrouching = false; // vero se il personaggio sta attaccando
     private bool isLanding = false; // vero se il personaggio sta attaccando
     private bool isRunning = false; // vero se il personaggio sta correndo
-    private bool isHeal = false; // vero se il personaggio sta correndo
     private float currentSpeed; // velocità corrente del personaggio
     private Rigidbody2D rb; // componente Rigidbody2D del personaggio
     [SerializeField] public static bool playerExists;
     [SerializeField] public bool blockInput = false;
    
-    public SkeletonMecanim skeletonM;
-    public float moveX;
 [Header("Audio")]
 [SerializeField] AudioSource SwSl;
 [SerializeField] AudioSource Smagic;
@@ -123,13 +109,13 @@ public static CharacterController2D Instance
         playerPosition = transform.position;
         HitPosition = Hit.transform.position;
         Less = GetComponent<PlayerHealth>();
+        Atk = GetComponent<PlayerAttack>();
         rb = GetComponent<Rigidbody2D>();
         if (gM == null)
         {
             gM = GetComponent<GameplayManager>();
         }
         anim = GetComponent<Animator>();
-        currentCooldown = attackCooldown;
         
         if (playerExists) {
         Destroy(gameObject);
@@ -157,7 +143,7 @@ public static CharacterController2D Instance
 #region Move
 moveX = Input.GetAxis("Horizontal");
 currentSpeed = moveSpeed;
-if (isRunning && !isAttacking)
+if (isRunning && !Atk.isAttacking)
 {
     if (moveX != 0)
     {
@@ -179,7 +165,7 @@ if (isRunning && !isAttacking)
         currentSpeed = 0;
     }
 }
-if (isAttacking || isLanding)
+if (Atk.isAttacking || isLanding)
 {
     rb.velocity = new Vector2(0f, 0f);
 }
@@ -204,20 +190,6 @@ else
     collider.offset = initialColliderOffset;
 
 }
-///////////////////////////////
-if (Input.GetKeyDown(KeyCode.C))
-{
-    isHeal = true;
-
-    if(gM.Potions > 0)
-    {
-        gM.removeOnePotion();
-    }
-
-}else
-{
-    isHeal = false;
-}
 
 
 if (moveX < 0)
@@ -233,7 +205,7 @@ else if (moveX > 0)
 #endregion
 
 
-
+/*
 // gestione dell'input dello sparo
 if (Input.GetButtonDown("Fire2"))
 {
@@ -241,7 +213,7 @@ if (Input.GetButtonDown("Fire2"))
         {
     anim.SetTrigger("isShoot");
         }
-}
+}*/
 
 
         // gestione dell'input del salto
@@ -272,8 +244,7 @@ if (isJumping)
 
     if (Input.GetButtonDown("Fire1"))
     {
-        Attack();
-        isAttacking = true;
+        Atk.isAttacking = true;
         isJumping = false;
         isFall = true;
         isLoop = true;
@@ -284,33 +255,6 @@ if (isJumping)
     }
 
 
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Attack();
-        }
-            shootTimer -= Time.deltaTime;
-            if (shootTimer <= 0)
-            {
-                isAttacking= false;
-                shootTimer = 0.5f;
-            }
-        // gestione del timer della combo
-        if (comboCounter > 0)
-        {
-            comboTimer -= Time.deltaTime;
-            if (comboTimer <= 0)
-            {
-                isAttacking= false;
-                comboCounter = 0;
-                comboTimer = 0.5f;
-            }
-        }
-
-        // gestione del cooldown dell'attacco
-        if (currentCooldown > 0)
-        {
-            currentCooldown -= Time.deltaTime;
-        }
 
 if (Input.GetButton("Fire3")&& !dashing && coolDownTime <= 0)
         {
@@ -362,7 +306,6 @@ if (Input.GetButton("Fire3")&& !dashing && coolDownTime <= 0)
         anim.SetBool("IsRunning", isRunning);
         anim.SetBool("Dash", dashing);
         anim.SetBool("Crouch", isCrouching);
-        anim.SetBool("IsHeal", isHeal);
 
 
     }
@@ -398,62 +341,6 @@ if (Input.GetButton("Fire3")&& !dashing && coolDownTime <= 0)
         }
     }
 
-void blastAnm()
-{
-   
-if (Time.time > nextAttackTime)
-    {
-    isAttacking = true;
-    nextAttackTime = Time.time + 1f / attackRate;
-    Smagic.Play();
-    Instantiate(blam, gun.position, transform.rotation);
-    Instantiate(bullet, gun.position, transform.rotation);
-    }    
-}
-
-
-void evocationSword()
-{
-    Smagic.Play();
-    Instantiate(EvocationSword, gun.position, transform.rotation);
-    
-}
-
-void crashSlash()
-{
-    SCrash.Play();
-
-}
-
-public void slashSound()
-    {
-        SwSl.Play();
-    } 
-
-    void Attack()
-    {
-        if (currentCooldown <= 0)
-        {
-            isAttacking = true;
-            comboCounter++;
-            if (comboCounter > maxCombo)
-            {
-                comboCounter = 1;
-            }
-            anim.SetInteger("ComboCounter", comboCounter);
-            anim.SetTrigger("Attack1");
-            if (comboCounter == 1)
-            {
-            }else if (comboCounter == 2)
-            {
-            }else if (comboCounter == 3)
-            {
-
-            }
-            currentCooldown = attackCooldown;
-            comboTimer = 0.5f;
-        }
-    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -503,18 +390,6 @@ public void AnmHurt()
 {
             anim.SetTrigger("TakeDamage");
 }
-
-#region CambioMagia
-    public void SetBulletPrefab(GameObject newBullet)
-    //Funzione per cambiare arma
-    {
-       bullet = newBullet;
-    }    
-    
-#endregion
-
-
-    
 
 
 

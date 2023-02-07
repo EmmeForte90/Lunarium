@@ -19,11 +19,11 @@ private float cooldown = 0.5f;
 private float lastWeaponChangeTime;
     private int currentWeaponIndex;
 
-    CharacterController2D playerShootScript;
+    PlayerAttack playerShootScript;
 
     private void Awake()
     { 
-        playerShootScript = GetComponent<CharacterController2D>();
+        playerShootScript = GetComponent<PlayerAttack>();
         instance = this;
         currentWeaponIndex = 1;
     }
