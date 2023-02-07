@@ -1,0 +1,10 @@
+skeleton.png
+size:2048,1024
+filter:Linear,Linear
+pma:true
+Charge
+bounds:979,859,94,118
+Luce
+bounds:979,799,59,58
+mAGIC
+bounds:2,2,975,975

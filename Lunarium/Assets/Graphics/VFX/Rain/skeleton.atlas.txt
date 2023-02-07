@@ -1,0 +1,133 @@
+skeleton.png
+size:2048,2048
+filter:Linear,Linear
+pma:true
+rain_PNG/Layer 1
+bounds:2,1453,584,520
+rain_PNG/Layer 10
+bounds:2,931,584,520
+rain_PNG/Layer 11
+bounds:588,1453,584,520
+rain_PNG/Layer 12
+bounds:2,409,584,520
+rain_PNG/Layer 2
+bounds:588,931,584,520
+rain_PNG/Layer 3
+bounds:1174,1453,584,520
+rain_PNG/Layer 4
+bounds:588,409,584,520
+rain_PNG/Layer 5
+bounds:1174,931,584,520
+rain_PNG/Layer 6
+bounds:1174,409,584,520
+ripple/1
+bounds:1845,1882,80,21
+ripple/10
+bounds:1930,1917,80,21
+ripple/11
+bounds:87,281,80,21
+ripple/12
+bounds:172,316,80,21
+ripple/13
+bounds:257,349,80,21
+ripple/14
+bounds:2,2,80,21
+rotate:90
+ripple/15
+bounds:737,386,80,21
+ripple/2
+bounds:1760,1566,80,21
+rotate:90
+ripple/3
+bounds:339,349,80,21
+ripple/4
+bounds:25,2,80,21
+rotate:90
+ripple/5
+bounds:819,386,80,21
+ripple/6
+bounds:1760,1484,80,21
+rotate:90
+ripple/7
+bounds:1783,1566,80,21
+rotate:90
+ripple/8
+bounds:421,349,80,21
+ripple/9
+bounds:48,2,80,21
+rotate:90
+splash_up/1
+bounds:257,372,78,35
+splash_up/10
+bounds:1760,1833,78,35
+splash_up/11
+bounds:2,232,78,35
+splash_up/12
+bounds:337,372,78,35
+splash_up/13
+bounds:1760,1796,78,35
+splash_up/14
+bounds:2,195,78,35
+splash_up/15
+bounds:417,372,78,35
+splash_up/16
+bounds:1760,1759,78,35
+splash_up/17
+bounds:2,158,78,35
+splash_up/2
+bounds:497,372,78,35
+splash_up/3
+bounds:1760,1722,78,35
+splash_up/4
+bounds:2,121,78,35
+splash_up/5
+bounds:577,372,78,35
+splash_up/6
+bounds:1760,1685,78,35
+splash_up/7
+bounds:2,84,78,35
+splash_up/8
+bounds:657,372,78,35
+splash_up/9
+bounds:1760,1648,78,35
+splash_up1/1
+bounds:2,374,83,33
+splash_up1/10
+bounds:1760,1940,83,33
+splash_up1/11
+bounds:2,339,83,33
+splash_up1/12
+bounds:87,374,83,33
+splash_up1/13
+bounds:1760,1905,83,33
+splash_up1/14
+bounds:1845,1940,83,33
+splash_up1/15
+bounds:2,304,83,33
+splash_up1/2
+bounds:87,339,83,33
+splash_up1/3
+bounds:172,374,83,33
+splash_up1/4
+bounds:1760,1870,83,33
+splash_up1/5
+bounds:1845,1905,83,33
+splash_up1/6
+bounds:1930,1940,83,33
+splash_up1/7
+bounds:2,269,83,33
+splash_up1/8
+bounds:87,304,83,33
+splash_up1/9
+bounds:172,339,83,33
+
+skeleton_2.png
+size:2048,1024
+filter:Linear,Linear
+pma:true
+rain_PNG/Layer 7
+bounds:2,2,584,520
+rain_PNG/Layer 8
+bounds:588,2,584,520
+rain_PNG/Layer 9
+bounds:1174,2,584,520
