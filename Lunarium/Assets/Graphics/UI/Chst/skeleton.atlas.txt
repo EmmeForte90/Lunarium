@@ -1,0 +1,74 @@
+skeleton.png
+size:2048,2048
+filter:Linear,Linear
+pma:true
+images/Chest/Livello 2
+bounds:540,536,471,481
+rotate:90
+images/Chest/Livello 3
+bounds:536,55,479,513
+rotate:90
+images/Chest/Livello 4
+bounds:2,81,532,482
+images/Cocito/Livello 1
+bounds:1622,1563,470,371
+rotate:90
+images/Cocito/Livello 2
+bounds:1023,539,471,505
+rotate:90
+images/Cocito/Livello 3
+bounds:1021,1012,475,533
+images/Cocito/Livello 4
+bounds:545,1547,541,486
+images/Dwarf/Livello 3
+bounds:1051,19,484,518
+images/Dwarf/Livello 4
+bounds:2,565,536,485
+images/Lock
+bounds:2,2,77,77
+images/Maleborge/Livello 4
+bounds:540,1009,535,479
+rotate:90
+images/Obliskoll/Livello 2
+bounds:1530,542,478,482
+images/Obliskoll/Livello 4
+bounds:1088,1550,532,483
+images/Oglom/Livello 3
+bounds:1537,27,496,513
+images/Oglom/Livello 4
+bounds:2,1546,541,487
+images/Saint/Livello 3
+bounds:1498,1026,492,522
+images/Saint/Livello 4
+bounds:2,1052,536,492
+
+skeleton_2.png
+size:2048,2048
+filter:Linear,Linear
+pma:true
+images/Chest/Livello 1
+bounds:481,475,471,342
+images/Dwarf/Livello 1
+bounds:480,133,469,340
+images/Dwarf/Livello 2
+bounds:2,2,476,477
+images/Maleborge/Livello 1
+bounds:504,1165,478,346
+images/Maleborge/Livello 2
+bounds:2,481,486,477
+rotate:90
+images/Maleborge/Livello 3
+bounds:2,1483,500,512
+images/Obliskoll/Livello 1
+bounds:484,819,475,344
+images/Obliskoll/Livello 3
+bounds:2,969,480,512
+images/Oglom/Livello 1
+bounds:1488,1297,484,341
+images/Oglom/Livello 2
+bounds:504,1513,491,482
+images/Saint/Livello 1
+bounds:1488,1640,482,355
+images/Saint/Livello 2
+bounds:997,1524,471,489
+rotate:90
