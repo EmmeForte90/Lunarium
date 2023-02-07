@@ -1,0 +1,40 @@
+Slash.png
+size:2048,1024
+filter:Linear,Linear
+pma:true
+DarkSlash/Livello 1
+bounds:398,262,286,222
+rotate:90
+DarkSlash/Livello 2
+bounds:2,104,394,444
+DarkSlash/Livello 3
+bounds:1689,704,290,295
+rotate:90
+DarkSlash/Livello 4
+bounds:622,283,266,151
+DarkSlash/Livello 5
+bounds:1563,562,144,104
+rotate:90
+LightSlash/Livello 3
+bounds:954,714,369,280
+LightSlash/Livello 4
+bounds:2,550,494,444
+LightSlash/Livello 5
+bounds:1325,708,362,286
+LightSlash/Livello 6
+bounds:622,436,271,174
+LightSlash/Livello 7
+bounds:895,510,100,57
+rotate:90
+NormalSlash/Livello 1
+bounds:954,505,315,207
+NormalSlash/Livello 2
+bounds:498,612,382,454
+rotate:90
+NormalSlash/Livello 3
+bounds:1271,472,290,234
+NormalSlash/Livello 4
+bounds:2,2,233,100
+NormalSlash/Livello 5
+bounds:1986,909,85,42
+rotate:90

@@ -1,0 +1,17 @@
+Ecelsior.png
+size:1024,256
+filter:Linear,Linear
+pma:true
+braccio
+bounds:557,147,92,130
+rotate:90
+corpo
+bounds:689,158,85,81
+drappo
+bounds:413,137,142,102
+gonna
+bounds:203,7,132,232
+matello
+bounds:2,2,199,237
+testa
+bounds:337,63,74,176
