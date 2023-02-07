@@ -1,0 +1,54 @@
+skeleton.png
+size:1024,1024
+filter:Linear,Linear
+pma:true
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00000
+bounds:2,810,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00001
+bounds:2,608,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00002
+bounds:204,810,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00003
+bounds:2,406,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00004
+bounds:204,608,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00005
+bounds:406,810,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00006
+bounds:2,204,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00007
+bounds:204,406,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00008
+bounds:406,608,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00009
+bounds:608,810,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00010
+bounds:2,2,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00011
+bounds:204,204,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00012
+bounds:406,406,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00013
+bounds:608,608,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00014
+bounds:810,810,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00015
+bounds:204,2,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00016
+bounds:406,204,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00017
+bounds:608,406,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00018
+bounds:810,608,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00019
+bounds:406,2,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00020
+bounds:608,204,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00021
+bounds:810,406,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00022
+bounds:608,2,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00023
+bounds:810,204,200,200
+Elements - Energy 105 Ray Left Loop noCT noRSZ_00024
+bounds:810,2,200,200

@@ -22,6 +22,8 @@ public class CharacterController2D : MonoBehaviour
     Vector2 playerPosition;
     Vector2 HitPosition;
     public GameObject Hit;
+    public GameObject DashEff;
+    [SerializeField] public Transform dash;
 
     public float dashForce = 50f;
     public float dashDuration = 0.5f;
@@ -331,7 +333,7 @@ if (Input.GetButton("Fire3")&& !dashing && coolDownTime <= 0)
         }
         else if (moveX == 0)
         {
-            
+                dashing = false;
         }
 
             if (dashTime <= 0)
@@ -391,7 +393,11 @@ public void AnmHurt()
             anim.SetTrigger("TakeDamage");
 }
 
-
+public void dashEff()
+{
+   Smagic.Play();
+   Instantiate(DashEff, dash.position, transform.rotation);
+}
 
 public void Respawn()
 {

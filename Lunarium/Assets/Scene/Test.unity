@@ -5878,6 +5878,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &269107502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 269107503}
+  m_Layer: 3
+  m_Name: Dash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &269107503
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269107502}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.32, y: -0.07, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1671864020}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &269982637
 GameObject:
   m_ObjectHideFlags: 0
@@ -37888,6 +37919,7 @@ Transform:
   - {fileID: 156929624}
   - {fileID: 101189438}
   - {fileID: 1260440073}
+  - {fileID: 269107503}
   m_Father: {fileID: 8636263285274254535}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -37949,6 +37981,8 @@ MonoBehaviour:
   knockbackDuration: 0.5
   fallMultiplier: 5
   Hit: {fileID: 8636263285275477357}
+  DashEff: {fileID: 672879388523231879, guid: 477d684ce6ff62248bf1be7a9a8fe922, type: 3}
+  dash: {fileID: 269107503}
   dashForce: 20
   dashDuration: 0.5
   dashCoolDown: 1
