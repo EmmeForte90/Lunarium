@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Ground
+  - Enemy
+  - Spawn
+  - Spawn_1
+  - Spawn_2
+  - Spawn_3
+  - Spawn_4
+  - Spawn_5
+  - Confiner
+  - Hitbox
+  - Bound
+  - Chest
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Player
+  - Water
+  - UI
+  - Ground
+  - Edge
+  - Trampoline
+  - Enemy
+  - Hitbox
+  - Respawn
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Bkg
+    uniqueID: 1403590887
+    locked: 0
+  - name: Bk2
+    uniqueID: 3703566527
+    locked: 0
+  - name: AirPerspective
+    uniqueID: 2575852447
+    locked: 0
+  - name: Bk1
+    uniqueID: 1248872011
+    locked: 0
+  - name: Gameplay
+    uniqueID: 2728854189
+    locked: 0
+  - name: Fr1
+    uniqueID: 363298311
+    locked: 0
+  - name: Fr2
+    uniqueID: 1970935283
+    locked: 0
+  - name: HUD
+    uniqueID: 241957131
+    locked: 0

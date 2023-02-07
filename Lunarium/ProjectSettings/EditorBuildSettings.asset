@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scene/Mainmenu.unity
+    guid: 70873dffa3b2d6a42913705a85d93c79
+  - enabled: 1
+    path: Assets/Scene/Loading.unity
+    guid: 5c2d5e9d761a75b48978bc356c05e0cb
+  - enabled: 1
+    path: Assets/Scene/Nowhere.unity
+    guid: 8b53874dd7877164cba34496e8e06810
+  - enabled: 1
+    path: Assets/Scene/Blacksmith.unity
+    guid: b845ce229424ba3468b6bdc82e6427d6
+  - enabled: 1
+    path: Assets/Scene/Emporio.unity
+    guid: 8241ce4f3ae246f49a95a8b8ac0c9c20
+  - enabled: 1
+    path: Assets/Scene/Temple.unity
+    guid: 4acc8622d7c859f4e91bbb92669183bd
+  - enabled: 1
+    path: Assets/Scene/Test1.unity
+    guid: d433b10e8fa21d348aa2a84313038567
+  - enabled: 1
+    path: Assets/Scene/Test.unity
+    guid: c1b70b30e3c77f4458966fe94ff407f3
+  m_configObjects: {}
