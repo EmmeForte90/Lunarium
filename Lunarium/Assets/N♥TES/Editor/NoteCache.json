@@ -1,0 +1,28 @@
+{
+    "notes": [
+        {
+            "noteText": "",
+            "show": false,
+            "typeName": "UnityEngine.GameObject",
+            "GlobalObjectSerialization": "GlobalObjectId_V1-0-00000000000000000000000000000000-0-0"
+        },
+        {
+            "noteText": "",
+            "show": true,
+            "typeName": "UnityEngine.GameObject",
+            "GlobalObjectSerialization": "GlobalObjectId_V1-1-b3c60bd734d5d994f8cf26b59b6528de-8636263283415020105-0"
+        },
+        {
+            "noteText": "Ricordati di inserire un prefab  gameplay in ogni scena in cui vuoi che la telecamera segui il player",
+            "show": true,
+            "typeName": "UnityEngine.GameObject",
+            "GlobalObjectSerialization": "GlobalObjectId_V1-2-ac1676f4eaeeb344196533030085ef62-887798797-0"
+        },
+        {
+            "noteText": "Ricordati di disattivare  interact key  and need button se vuoi che cambiare scenario senza interagire\n\nLo spawn è un gameobject figlio del prefab, ricordati di posizionarli sempre",
+            "show": true,
+            "typeName": "UnityEngine.GameObject",
+            "GlobalObjectSerialization": "GlobalObjectId_V1-2-ac1676f4eaeeb344196533030085ef62-165890156-0"
+        }
+    ]
+}
