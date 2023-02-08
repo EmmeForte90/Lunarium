@@ -23,6 +23,18 @@
             "show": true,
             "typeName": "UnityEngine.GameObject",
             "GlobalObjectSerialization": "GlobalObjectId_V1-2-ac1676f4eaeeb344196533030085ef62-165890156-0"
+        },
+        {
+            "noteText": "Manca solo la palla di fuoco",
+            "show": true,
+            "typeName": "UnityEngine.GameObject",
+            "GlobalObjectSerialization": "GlobalObjectId_V1-2-c1b70b30e3c77f4458966fe94ff407f3-1720618495-0"
+        },
+        {
+            "noteText": "Non insegue il player",
+            "show": true,
+            "typeName": "UnityEngine.GameObject",
+            "GlobalObjectSerialization": "GlobalObjectId_V1-2-c1b70b30e3c77f4458966fe94ff407f3-109917151-0"
         }
     ]
 }

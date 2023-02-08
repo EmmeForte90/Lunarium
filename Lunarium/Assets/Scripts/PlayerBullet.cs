@@ -175,11 +175,11 @@ void OnTriggerEnter2D(Collider2D other)
 
             if (Dagger)
             {
-                damage = 10;
+                damage = 5;
             }
             else if (Sword)
             {
-                damage = 5;
+                damage = 15;
             }
             else if (Lance)
             {
@@ -187,7 +187,10 @@ void OnTriggerEnter2D(Collider2D other)
             }
             else if (Axe)
             {
-                damage = 25;
+                damage = 60;
+            }else if (Bilama)
+            {
+                damage = 10;
             }
 
             IDamegable hit = other.GetComponent<IDamegable>();

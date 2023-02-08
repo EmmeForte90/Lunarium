@@ -2557,7 +2557,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 109917151}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 76.33, y: 0, z: 0}
+  m_LocalPosition: {x: -144.86, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6720,7 +6720,7 @@ GameObject:
   - component: {fileID: 306232727}
   - component: {fileID: 306232735}
   - component: {fileID: 306232733}
-  - component: {fileID: 306232734}
+  - component: {fileID: 306232736}
   m_Layer: 9
   m_Name: Brain
   m_TagString: Enemy
@@ -6875,32 +6875,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &306232734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 306232726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71dd5cb010b40f04488ce18633b11dc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 100
-  pointA: {fileID: 518585919}
-  pointB: {fileID: 1092594527}
-  moveSpeed: 2
-  attackRadius: 5
-  Brain: {fileID: 306232726}
-  attackrange: 8
-  attackCooldown: 2
-  DeathBack: {fileID: 4534937621921314121, guid: 832f55d4c68568a469cc0febd52c0f36, type: 3}
-  Death: {fileID: 5763472482510563272, guid: 16b14d9285782e143a2a7484abae4988, type: 3}
-  isLittle: 0
-  SwSl: {fileID: 337561733}
-  SDie: {fileID: 1057141900}
 --- !u!70 &306232735
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -6917,6 +6891,32 @@ CapsuleCollider2D:
   m_Offset: {x: -0.18949318, y: 3.9511871}
   m_Size: {x: 3.556057, y: 8.351078}
   m_Direction: 0
+--- !u!114 &306232736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306232726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4baf63692e155e448ac0aae4d2b7cdfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 100
+  pointA: {fileID: 518585919}
+  pointB: {fileID: 1092594527}
+  moveSpeed: 2
+  attackRadius: 5
+  Brain: {fileID: 306232726}
+  attackrange: 8
+  attackCooldown: 2
+  DeathBack: {fileID: 4534937621921314121, guid: 832f55d4c68568a469cc0febd52c0f36, type: 3}
+  Death: {fileID: 5763472482510563272, guid: 16b14d9285782e143a2a7484abae4988, type: 3}
+  isLittle: 0
+  SwSl: {fileID: 168424426}
+  SDie: {fileID: 144369221}
 --- !u!1 &311501743
 GameObject:
   m_ObjectHideFlags: 0
@@ -19657,6 +19657,8 @@ MonoBehaviour:
   Brain: {fileID: 861667205}
   attackrange: 2
   attackCooldown: 2
+  knockbackForce: 6
+  knockbackDuration: 0.5
   DeathBack: {fileID: 2012342671280620890, guid: 84b6583312103a745b4d7a4f3a1e9f8d, type: 3}
   Death: {fileID: 2999523926350285892, guid: 48c7ddbd3c37b5446aeaf861a67ecf6a, type: 3}
   isLittle: 0
@@ -19666,7 +19668,6 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  knockbackForce: 5
 --- !u!70 &861667212
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -19680,8 +19681,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.21458626, y: 2.8413913}
-  m_Size: {x: 1.6349945, y: 6.257256}
+  m_Offset: {x: -0.21458626, y: 3.085929}
+  m_Size: {x: 1.6349945, y: 5.768181}
   m_Direction: 0
 --- !u!50 &861667213
 Rigidbody2D:
@@ -38808,7 +38809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonDataAsset: {fileID: 11400000, guid: aadea3ed00f584643b41a17b7390135e, type: 2}
-  initialSkinName: 
+  initialSkinName: Normal
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0
   initialFlipY: 0
@@ -38989,7 +38990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveX: 0
   moveSpeed: 5
-  jumpForce: 10
+  jumpForce: 7
   runMultiplier: 3
   knockbackForce: 3
   knockbackDuration: 0.5
@@ -40063,7 +40064,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1720618495}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -153, y: 0, z: 0}
+  m_LocalPosition: {x: 60.97, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -50850,7 +50851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Clang: {fileID: 4740457793111715934, guid: 98e6baff25d789c4e87386b544c4fb4e, type: 3}
-  Sdeng: {fileID: 7866759376238776375, guid: 808ff1c2d53047f428488a13db9c4843, type: 3}
+  Sdeng: {fileID: 3521028388216535397, guid: 73fa29b238860e44a9538824e70af93a, type: 3}
   Pos: {fileID: 8636263285275477346}
   player: {fileID: 1671864023}
   attackDamage: 10

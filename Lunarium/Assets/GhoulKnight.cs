@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
 using Spine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 
-public class Skeleton : Health, IDamegable
+public class GhoulKnight : Health, IDamegable
 {
     public Transform pointA, pointB;
     public float moveSpeed = 2f;
@@ -15,8 +16,6 @@ public class Skeleton : Health, IDamegable
     private Transform target;
     private Animator animator;
     private bool movingToA = false;
-        private bool isKnockback = false;
-
     Health health;
     Rigidbody2D rb;
     GameplayManager gM;
@@ -25,10 +24,7 @@ public float attackrange = 2f;
 private float attackTimer;
 public float attackCooldown = 2f; // durata del cooldown dell'attacco
 private SkeletonMecanim skeletonMecanim;
-private Color originalColor;
- public float knockbackForce = 5.0f;
-public float knockbackDuration = 0.5f;
-private float knockbackTimer;
+    private Color originalColor;
 
     [SerializeField] GameObject DeathBack;
     [SerializeField] GameObject Death;
@@ -40,14 +36,10 @@ private float pauseTimer; // timer per la pausa
 [Header("Audio")]
 [SerializeField] AudioSource SwSl;
 [SerializeField] AudioSource SDie;
-    public float raycastRange;
-    public LayerMask playerLayer;
-
-    private Vector2 direction;
 
 
 
-private enum State { Move, Attack, Chase, Knockback, Dead }
+private enum State { Move, Attack, Dead }
 private State currentState;
 
     void Awake()
@@ -72,18 +64,13 @@ private State currentState;
          if (!gM.PauseStop)
         {
            CheckState();
-           
-
             switch (currentState)
             {
                 case State.Move:
                     Move();
                     break; 
-                case State.Chase:
-                    ChasePlayer();
-                    break;
-                case State.Knockback:
-                    Knockback();
+                case State.Attack:
+                    Attack();
                     break;
                 case State.Dead:
                     break;
@@ -132,56 +119,7 @@ private State currentState;
                 movingToA = true;
             }
         }
-
     }
-
-
-
-private void CheckState()
-{
-    if (health.currentHealth == 0)
-    {
-        currentState = State.Dead;
-        return;
-    }
-
-    if (knockbackTimer > 0)
-{
-    return;
-}
-
-    if (Vector2.Distance(transform.position, player.position) < attackrange)
-    {
-        currentState = State.Chase;
-        return;
-    } 
-
-
-    currentState = State.Move;
-}
-
-
-private void ChasePlayer()
-    {
-        rb.velocity = direction * moveSpeed;
-
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, raycastRange, playerLayer);
-        if (hit.collider == null || !hit.collider.CompareTag("Player"))
-        {
-            currentState = State.Move;
-        }
-    }
-
-    private void Knockback()
-    {
-        if (rb.velocity.magnitude <= 0.1f)
-        {
-            currentState = State.Move;
-        }
-    }
-
-    
-
 
     void LookAtPlayer()
     {
@@ -195,15 +133,41 @@ private void ChasePlayer()
     }
     }
 
-    
+private void CheckState()
+{
+    if (health.currentHealth == 0)
+    {
+        currentState = State.Dead;
+        return;
+    }
 
-    
+    if (Vector2.Distance(transform.position, player.position) < attackrange)
+    {
+        currentState = State.Attack;
+        return;
+    }
 
- #region Gizmos
+    currentState = State.Move;
+}
+
+private void Attack()
+{
+    LookAtPlayer();
+    animator.SetTrigger("attack");
+    // gestione dell'attacco del nemico
+    if (attackTimer > 0)
+    {
+        attackTimer -= Time.deltaTime;
+        return;
+    }
+    attackTimer = attackCooldown;
+}
+
+    #region Gizmos
 private void OnDrawGizmos()
     {
     Gizmos.color = Color.red;
-    Gizmos.DrawWireSphere(transform.position, raycastRange);
+    Gizmos.DrawWireSphere(transform.position, attackrange);
     }
 #endregion
 
@@ -236,9 +200,6 @@ public void Damage(int damage)
     {
         health.currentHealth -= damage;
         anmHurt();
-        knockbackTimer = knockbackDuration;
-    Vector2 knockbackDirection = (transform.position - player.transform.position).normalized;
-    rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
         
     }
 
@@ -271,4 +232,8 @@ public void TemporaryChangeColor(Color color)
     }
 
 
+public void Sword()
+    {
+        SwSl.Play();
+    } 
 }
