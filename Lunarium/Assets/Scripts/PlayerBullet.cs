@@ -84,32 +84,27 @@ public class PlayerBullet : MonoBehaviour
         
     
 
-
-
-
-#region Update
-    void Update()
+ #region Update
+void Update()
+{
+    float velocityX = 0f;
+    if (Dagger)
     {
-        
-        if(Dagger || Sword && !Axe && !Lance)
-        {
-         myRigidbody.velocity = new Vector2 (xSpeed, 0f);
-
-        }
-        else if(!Dagger && !Sword && Axe && !Lance)
-        {
-        myRigidbody.velocity = new Vector2 (shotgunSpeed, 0f);
-        }
-        else if(!Dagger && !Sword && !Axe && Lance)
-        {
-        }
-        //La velocità e la direzione del proiettile
-        FlipSprite();
-        
-        
+        velocityX = xSpeed;
     }
+    else if (Sword)
+    {
+        velocityX = xSpeed;
+    }
+    else if (Axe)
+    {
+        velocityX = shotgunSpeed;
+    }
+    myRigidbody.velocity = new Vector2(velocityX, 0f);
+    FlipSprite();
+}
 #endregion
- 
+
 
 #region  FlipSprite
     void FlipSprite()
@@ -130,27 +125,99 @@ public class PlayerBullet : MonoBehaviour
 
 #endregion
 
-#region  MP
-    void CostMP()
+/*#region Update
+    void Update()
     {
+        
         if(Dagger || Sword && !Axe && !Lance)
         {
-         Less.TakeManaDamage(MPCost);
+         myRigidbody.velocity = new Vector2 (xSpeed, 0f);
+
         }
         else if(!Dagger && !Sword && Axe && !Lance)
         {
-        Less.TakeManaDamage(MPCost);
+        myRigidbody.velocity = new Vector2 (shotgunSpeed, 0f);
         }
         else if(!Dagger && !Sword && !Axe && Lance)
         {
-            Less.TakeManaDamage(MPCost);
         }
+        //La velocità e la direzione del proiettile
+        FlipSprite();
         
+        
+    }
+#endregion*/
+
+
+
+#region  MP
+    void CostMP()
+    {
+        
+    if (Dagger || Sword || Axe || Lance || Bilama)
+    {
+        Less.TakeManaDamage(MPCost);
+    }
+
         
     }
 
 #endregion
-    void OnTriggerEnter2D(Collider2D other) 
+
+void OnTriggerEnter2D(Collider2D other)
+{
+    switch (other.gameObject.tag)
+    {
+        case "Enemy":
+            SExp.Play();
+            Instantiate(Explode, transform.position, transform.rotation);
+            int damage = 0;
+
+            if (Dagger)
+            {
+                damage = 10;
+            }
+            else if (Sword)
+            {
+                damage = 5;
+            }
+            else if (Lance)
+            {
+                damage = 50;
+            }
+            else if (Axe)
+            {
+                damage = 25;
+            }
+
+            IDamegable hit = other.GetComponent<IDamegable>();
+            hit.Damage(damage);
+
+            if (Dagger || Lance)
+            {
+                Destroy(gameObject);
+            }
+            break;
+
+        case "Ground":
+            SExp.Play();
+            Instantiate(Explode, transform.position, transform.rotation);
+
+            if (!Axe)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                Invoke("Destroy", lifeTime);
+            }
+            break;
+    }
+}
+
+
+
+    /*void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.gameObject.tag == "Enemy")
         //Se il proiettile tocca il nemico
@@ -205,7 +272,7 @@ public class PlayerBullet : MonoBehaviour
             Invoke("Destroy", lifeTime);
         }
         
-    }
+    }*/
 
     void Destroy()
     {

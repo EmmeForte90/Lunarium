@@ -88,6 +88,7 @@ Clang.Play();
         {
             button.gameObject.SetActive(false); // Initially hide the dialogue text
             _isInTrigger = false;
+            anim.SetBool("talk", _isInTrigger);
             StopCoroutine(ShowDialogue());
             dialogueIndex++; // Increment the dialogue index
             if (dialogueIndex >= dialogue.Length)
