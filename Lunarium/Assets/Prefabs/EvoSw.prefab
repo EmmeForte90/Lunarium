@@ -140,9 +140,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 0.5
-  isExplosion: 0
-  intensity: 5
-  time: 0.1
+  thisObj: {fileID: 3769966992156755340}
+  isDash: 0
 --- !u!114 &2513448429885290761
 MonoBehaviour:
   m_ObjectHideFlags: 0

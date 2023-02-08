@@ -14,9 +14,15 @@ public class PlayerWeaponManager : MonoBehaviour
     [SerializeField] private GameObject lance;
     [SerializeField] private GameObject bilama;
 
+    public bool isDagger = false;
+    public bool isSword = false;
+    public bool isAxe = false; 
+    public bool isLance = false;  
+    public bool isBilama = false; 
+
     public KeyCode _button = KeyCode.F;
-private float cooldown = 0.5f;
-private float lastWeaponChangeTime;
+    private float cooldown = 0.5f;
+    private float lastWeaponChangeTime;
     private int currentWeaponIndex;
 
     PlayerAttack playerShootScript;
@@ -52,29 +58,41 @@ void OnChangeWeapon()
 
 public void SetWeapon(int WeaponID)
 {
+    isDagger = false;
+    isSword = false;
+    isAxe = false;
+    isLance = false;
+    isBilama = false;
+
     switch (WeaponID)
     {
         case 1:
-    playerShootScript.SetBulletPrefab(dagger);
-    break;
+            playerShootScript.SetBulletPrefab(dagger);
+            isDagger = true;
+            break;
 
-    case 2:
-    playerShootScript.SetBulletPrefab(sword);
-    break;
+        case 2:
+            playerShootScript.SetBulletPrefab(sword);
+            isSword = true;
+            break;
 
-    case 3:
-    playerShootScript.SetBulletPrefab(axe);
-    break;
+        case 3:
+            playerShootScript.SetBulletPrefab(axe);
+            isAxe = true;
+            break;
 
-    case 4:
-    playerShootScript.SetBulletPrefab(lance);
-    break;
+        case 4:
+            playerShootScript.SetBulletPrefab(lance);
+            isLance = true;
+            break;
 
-    case 5:
-    playerShootScript.SetBulletPrefab(bilama);
-    break;
-        
+        case 5:
+            playerShootScript.SetBulletPrefab(bilama);
+            isBilama = true;
+            break;
     }
+        
+    
     
 
  }

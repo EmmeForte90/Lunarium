@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
@@ -6,20 +6,30 @@ using Cinemachine;
 
 public class DestroyOverTime : MonoBehaviour
 {
-    [Header("Tempo di esplosione")]
-    [SerializeField] public float lifeTime;
+    [Header("Parametri")]
+    [SerializeField] private float lifeTime;
+    [SerializeField] private GameObject thisObj;
+    [SerializeField] private bool isDash;
+    private CharacterController2D player;
 
-    [Header("Se è un esplosione")]
-    [SerializeField] public bool isExplosion;
-    [SerializeField] public float intensity = 5f;
-    [SerializeField] public float time = .1f;
-
-    void Update()
+    private void Awake()
     {
-        Destroy(gameObject, lifeTime);
-        if(isExplosion)
+        player = FindObjectOfType<CharacterController2D>();
+    }
+
+    private void Update()
+    {
+        Destroy(thisObj, lifeTime);
+
+        if (isDash)
         {
-           // CinemachineShake.instance.ShakeCamera(intensity, time);
+             Vector2 direction = player.transform.localScale.x < 0 ? new Vector2(-3f, 3f) : new Vector2(3f, 3f);
+        transform.localScale = direction;
         }
+    }
+
+    void StopAnm()
+    {
+        
     }
 }

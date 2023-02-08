@@ -165,14 +165,6 @@ public void slashSound()
             }
             anim.SetInteger("ComboCounter", comboCounter);
             anim.SetTrigger("Attack1");
-            if (comboCounter == 1)
-            {
-            }else if (comboCounter == 2)
-            {
-            }else if (comboCounter == 3)
-            {
-
-            }
             currentCooldown = attackCooldown;
             comboTimer = 0.5f;
         }
