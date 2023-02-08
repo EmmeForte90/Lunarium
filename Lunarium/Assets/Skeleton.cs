@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
 using Spine;
-using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 
-public class EnemyController :  Health, IDamegable
+public class Skeleton : Health, IDamegable
 {
     public Transform pointA, pointB;
     public float moveSpeed = 2f;
@@ -36,10 +35,15 @@ private float pauseTimer; // timer per la pausa
 [Header("Audio")]
 [SerializeField] AudioSource SwSl;
 [SerializeField] AudioSource SDie;
+    public float raycastRange;
+    public LayerMask playerLayer;
+    public float knockbackForce;
+
+    private Vector2 direction;
 
 
 
-private enum State { Move, Attack, Dead }
+private enum State { Move, Attack, Chase, Knockback, Dead }
 private State currentState;
 
     void Awake()
@@ -69,8 +73,11 @@ private State currentState;
                 case State.Move:
                     Move();
                     break; 
-                case State.Attack:
-                    Attack();
+                case State.Chase:
+                    ChasePlayer();
+                    break;
+                case State.Knockback:
+                    Knockback();
                     break;
                 case State.Dead:
                     break;
@@ -121,17 +128,7 @@ private State currentState;
         }
     }
 
-    void LookAtPlayer()
-    {
-        if (player.transform.position.x > transform.position.x)
-    {
-        transform.localScale = new Vector2(1f, 1f);
-    }
-    else if (player.transform.position.x < transform.position.x)
-    {
-        transform.localScale = new Vector2(-1f, 1f);
-    }
-    }
+
 
 private void CheckState()
 {
@@ -150,24 +147,59 @@ private void CheckState()
     currentState = State.Move;
 }
 
-private void Attack()
-{
-    LookAtPlayer();
-    animator.SetTrigger("attack");
-    // gestione dell'attacco del nemico
-    if (attackTimer > 0)
-    {
-        attackTimer -= Time.deltaTime;
-        return;
-    }
-    attackTimer = attackCooldown;
-}
 
-    #region Gizmos
+private void ChasePlayer()
+    {
+        rb.velocity = direction * moveSpeed;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, raycastRange, playerLayer);
+        if (hit.collider == null || !hit.collider.CompareTag("Player"))
+        {
+            currentState = State.Move;
+        }
+    }
+
+    private void Knockback()
+    {
+        if (rb.velocity.magnitude <= 0.1f)
+        {
+            currentState = State.Move;
+        }
+    }
+
+    
+
+
+    void LookAtPlayer()
+    {
+        if (player.transform.position.x > transform.position.x)
+    {
+        transform.localScale = new Vector2(1f, 1f);
+    }
+    else if (player.transform.position.x < transform.position.x)
+    {
+        transform.localScale = new Vector2(-1f, 1f);
+    }
+    }
+
+    
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Hitbox"))
+        {
+            Vector2 knockbackDirection = (transform.position - collision.transform.position).normalized;
+            rb.velocity = knockbackDirection * knockbackForce;
+        }
+    }
+
+   
+
+ #region Gizmos
 private void OnDrawGizmos()
     {
     Gizmos.color = Color.red;
-    Gizmos.DrawWireSphere(transform.position, attackrange);
+    Gizmos.DrawWireSphere(transform.position, raycastRange);
     }
 #endregion
 
@@ -232,8 +264,4 @@ public void TemporaryChangeColor(Color color)
     }
 
 
-public void Sword()
-    {
-        SwSl.Play();
-    } 
 }

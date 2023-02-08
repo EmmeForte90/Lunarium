@@ -84,7 +84,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 363298311
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &7010681912278302802
@@ -140,9 +140,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 0.8
-  isExplosion: 0
-  intensity: 5
-  time: 0.1
+  thisObj: {fileID: 7866759376238776375}
+  isDash: 0
 --- !u!114 &8907094218133957810
 MonoBehaviour:
   m_ObjectHideFlags: 0

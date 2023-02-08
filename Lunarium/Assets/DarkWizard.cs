@@ -6,7 +6,7 @@ using Spine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 
-public class EnemyController :  Health, IDamegable
+public class DarkWizard : Health, IDamegable
 {
     public Transform pointA, pointB;
     public float moveSpeed = 2f;
@@ -82,7 +82,6 @@ private State currentState;
 
     void Move()
     {
-
         animator.SetBool("isMove", true);
     //animator.SetBool("isChasing", false); // imposta la variabile booleana "IsChasing" dell'animatore a true
         if (movingToA)
@@ -125,11 +124,11 @@ private State currentState;
     {
         if (player.transform.position.x > transform.position.x)
     {
-        transform.localScale = new Vector2(1f, 1f);
+        transform.localScale = new Vector2(-1f, 1f);
     }
     else if (player.transform.position.x < transform.position.x)
     {
-        transform.localScale = new Vector2(-1f, 1f);
+        transform.localScale = new Vector2(1f, 1f);
     }
     }
 
@@ -145,7 +144,11 @@ private void CheckState()
     {
         currentState = State.Attack;
         return;
+    } else
+    {
+        animator.SetBool("isAttack", false);
     }
+
 
     currentState = State.Move;
 }
@@ -153,15 +156,22 @@ private void CheckState()
 private void Attack()
 {
     LookAtPlayer();
-    animator.SetTrigger("attack");
-    // gestione dell'attacco del nemico
-    if (attackTimer > 0)
-    {
-        attackTimer -= Time.deltaTime;
-        return;
-    }
-    attackTimer = attackCooldown;
+    animator.SetBool("isMove", false);
+    animator.SetBool("isAttack", true);
+
 }
+
+private void StartShoot()
+{
+        animator.SetBool("isShoot", true);
+}
+
+private void StopShoot()
+{
+        animator.SetBool("isShoot", false);
+}
+
+
 
     #region Gizmos
 private void OnDrawGizmos()
@@ -237,3 +247,4 @@ public void Sword()
         SwSl.Play();
     } 
 }
+
