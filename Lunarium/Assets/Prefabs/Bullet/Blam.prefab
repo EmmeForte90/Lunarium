@@ -176,6 +176,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 0.5
-  isExplosion: 0
-  intensity: 5
-  time: 0.1
+  thisObj: {fileID: 9173311337577857821}
+  isDash: 0

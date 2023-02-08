@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//Usa l'input system di Unity scaricato dal packet manager
+using Spine.Unity;
+using Spine;
 
 
 public class PlayerWeaponManager : MonoBehaviour
@@ -14,6 +15,9 @@ public class PlayerWeaponManager : MonoBehaviour
     [SerializeField] private GameObject lance;
     [SerializeField] private GameObject bilama;
 
+    [Header("Animations")]
+    private Animator anim; // componente Animator del personaggio
+    public SkeletonMecanim skeletonM;
     public bool isDagger = false;
     public bool isSword = false;
     public bool isAxe = false; 
@@ -29,6 +33,8 @@ public class PlayerWeaponManager : MonoBehaviour
 
     private void Awake()
     { 
+                anim = GetComponent<Animator>();
+
         playerShootScript = GetComponent<PlayerAttack>();
         instance = this;
         currentWeaponIndex = 1;
@@ -40,7 +46,12 @@ void Update()
         OnChangeWeapon();
         lastWeaponChangeTime = Time.time;
     }
-    
+    anim.SetBool("isDagger", isDagger);
+    anim.SetBool("isAxe", isAxe);
+    anim.SetBool("isSword", isSword);
+    anim.SetBool("isLance", isLance);
+    anim.SetBool("isBilama", isBilama);
+
     }
 
 #region ChangeWeapon

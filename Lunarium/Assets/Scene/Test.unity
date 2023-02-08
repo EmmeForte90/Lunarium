@@ -38079,6 +38079,12 @@ MonoBehaviour:
   axe: {fileID: 5973347569474014298, guid: 0e8eb20af3f3dbf4987bd42a9d759842, type: 3}
   lance: {fileID: 978235844193205966, guid: f7af82967ee23064aabfbef405356efc, type: 3}
   bilama: {fileID: 6353872326894538400, guid: b3af23cb85b0fe34882465c81edbc10e, type: 3}
+  skeletonM: {fileID: 1671864016}
+  isDagger: 1
+  isSword: 0
+  isAxe: 0
+  isLance: 0
+  isBilama: 0
   _button: 102
 --- !u!114 &1671864023
 MonoBehaviour:

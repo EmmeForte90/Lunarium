@@ -38,11 +38,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] public GameplayManager gM;
 
     public bool isAttacking = false;
-    private bool isDagger = false;
-    private bool isSword = false;
-    private bool isAxe = false; // vero se il personaggio sta saltando
-    private bool isLance = false; // vero se il personaggio sta saltando
-    private bool isBilama = false; // vero se il personaggio sta saltando
+    PlayerWeaponManager Wm;
     private Rigidbody2D rb; // componente Rigidbody2D del personaggio
     [SerializeField] public bool blockInput = false;
    
@@ -63,6 +59,11 @@ public static PlayerAttack Instance
                 return instance;
             }
         }
+
+        private void Awake()
+    { 
+        Wm = GetComponent<PlayerWeaponManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -170,12 +171,11 @@ public void slashSound()
         }
     }
 
-    #region CambioMagia
-    public void SetBulletPrefab(GameObject newBullet)
-    //Funzione per cambiare arma
-    {
-       bullet = newBullet;
-    }    
-    
+   #region CambioMagia
+public void SetBulletPrefab(GameObject newBullet)
+//Funzione per cambiare arma
+{
+    bullet = newBullet;
+}   
 #endregion
 }
