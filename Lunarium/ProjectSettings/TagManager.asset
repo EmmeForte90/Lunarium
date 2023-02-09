@@ -16,6 +16,7 @@ TagManager:
   - Hitbox
   - Bound
   - Chest
+  - Edge
   layers:
   - Default
   - TransparentFX

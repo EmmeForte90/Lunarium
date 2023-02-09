@@ -16,6 +16,8 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField] public float runMultiplier = 2f; // moltiplicatore di velocità per la corsa
     private int jumpCounter = 0;
     private int maxJumps = 2;
+    private float jumpDuration = 0.5f;
+
     public float knockbackForce = 10f;
     public float knockbackDuration = 0.5f;
     public float fallMultiplier = 2.5f;
@@ -75,7 +77,7 @@ public class CharacterController2D : MonoBehaviour
     private bool isLanding = false; // vero se il personaggio sta attaccando
     private bool isRunning = false; // vero se il personaggio sta correndo
     private float currentSpeed; // velocità corrente del personaggio
-    private Rigidbody2D rb; // componente Rigidbody2D del personaggio
+    public Rigidbody2D rb; // componente Rigidbody2D del personaggio
     [SerializeField] public static bool playerExists;
     [SerializeField] public bool blockInput = false;
    
@@ -220,41 +222,38 @@ if (Input.GetButtonDown("Fire2"))
 
         // gestione dell'input del salto
   if (Input.GetButtonDown("Jump") && jumpCounter < maxJumps)
-{
-    //SetState(3);
-    isJumping = true;
-    isGrounded = false; // vero se il personaggio sta saltando
-    rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-    jumpCounter++;
-    if(jumpCounter == 2)
     {
-        Smagic.Play();
-        Instantiate(Circle, circlePoint.position, transform.rotation);
-    }
-}
+        isJumping = true;
+        isGrounded = false;
+        jumpCounter++;
+        rb.velocity = Vector2.up * jumpForce;
 
-if (isJumping)
-{
-    // Se il personaggio sta cadendo, aumenta la velocità di discesa
+        if (jumpCounter == 2)
+        {
+            Smagic.Play();
+            Instantiate(Circle, circlePoint.position, transform.rotation);
+        }
+
+        StartCoroutine(JumpDurationCoroutine(jumpDuration));
+    }
+
     if (rb.velocity.y < 0)
     {
-        isFall = true;            
+        isFall = true;
         isLoop = true;
         rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-
     }
 
-    if (Input.GetButtonDown("Fire1"))
+    if (Input.GetButtonDown("Fire1") && isJumping)
     {
         Atk.isAttacking = true;
         isJumping = false;
         isFall = true;
         isLoop = true;
-
     }
-    
+     
    
-    }
+    
 
 
 
@@ -343,11 +342,23 @@ if (Input.GetButton("Fire3")&& !dashing && coolDownTime <= 0)
         }
     }
 
+private IEnumerator JumpDurationCoroutine(float duration)
+{
+    float timer = 0f;
+    while (timer < duration)
+    {
+        timer += Time.deltaTime;
+        yield return null;
+    }
+
+    isJumping = false;
+}
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
+            
             isGrounded = true; // vero se il personaggio sta saltando
             isFall = false;
             isJumping = false;
@@ -369,6 +380,8 @@ private void OnTriggerEnter2D(Collider2D collision)
                 sceneName = respawnObject.sceneName;
             }
         }
+
+    
 
 
 //Test per gestire il respawn
