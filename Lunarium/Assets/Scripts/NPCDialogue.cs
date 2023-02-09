@@ -75,6 +75,7 @@ void Awake()
         if (_isInTrigger && Input.GetKeyDown(KeyCode.E) && !_isDialogueActive)
         {
             anim.SetBool("talk", true);
+            talk.Play();
             StartCoroutine(ShowDialogue());
             gM.Dialogue();
         }
@@ -144,7 +145,6 @@ Clang.Play();
 
     IEnumerator ShowDialogue()
 {
-    talk.Play();
     fadeIn = true;
     fadeOut = false;
 
@@ -165,9 +165,6 @@ Clang.Play();
         yield return new WaitForSeconds(0.05f); // Wait before showing the next letter
     }
 
-        anim.SetBool("talk", false);
-        talk.Stop();
-
 
     if (dialogueIndex == dialogue.Length)
     {
@@ -181,7 +178,7 @@ Clang.Play();
 }
 
 
-    void NextDialogue()
+   /* void NextDialogue()
     {
 
         elapsedTime = 0; // reset elapsed time
@@ -202,7 +199,44 @@ Clang.Play();
         {
             StartCoroutine(ShowDialogue());
         }
+    }*/
+
+
+    private void NextDialogue()
+{
+    elapsedTime = 0; // Reset the elapsed time
+    dialogueIndex++; // Increment the dialogue index
+    if (dialogueIndex >= dialogue.Length)
+    {
+        // If all the dialogues have been completed, reset the dialogue index
+        // and set the dialogue as inactive
+        //Quando il dialogo è finito
+            fadeIn = false;
+            fadeOut = true;
+            talk.Stop();
+            gM.EndDialogue();
+            dialogueIndex = 0;
+            _isDialogueActive = false;
+            anim.SetBool("talk", false);
+
     }
+    else
+    {
+        // Show the next dialogue
+        //StartCoroutine(ShowDialogue());
+        string currentDialogue = dialogue[dialogueIndex];
+        dialogueText.text = "";
+        for (int i = 0; i < currentDialogue.Length; i++)
+        {
+            dialogueText.text += currentDialogue[i];
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime >= dialogueDuration)
+            {
+                break;
+            }
+        }
+    }
+}
 
     void FacePlayer()
     {
