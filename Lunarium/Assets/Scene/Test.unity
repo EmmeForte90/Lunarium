@@ -38406,9 +38406,9 @@ MonoBehaviour:
   moveSpeed: 5
   jumpForce: 9
   runMultiplier: 3
+  fallMultiplier: 5
   knockbackForce: 3
   knockbackDuration: 0.5
-  fallMultiplier: 5
   Hit: {fileID: 8636263285275477357}
   DashEff: {fileID: 672879388523231879, guid: 477d684ce6ff62248bf1be7a9a8fe922, type: 3}
   dash: {fileID: 269107503}

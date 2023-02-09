@@ -40,6 +40,23 @@ public class Grabbing : MonoBehaviour
     }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision == null) {
+        Debug.LogError("Object reference not set to an instance of an object");
+        return;
+    }
+        if (collision.tag == "Edge") {
+        player.rb.velocity = Vector2.zero;
+        player.rb.gravityScale = 0f;
+        isGrabbingEdge = true;
+        anim.SetBool("Grab", isGrabbingEdge);
+        Grab.Play();
+
+
+    }
+    }
+
 private void OnTriggerExit2D(Collider2D collider) {
     if (collider == null) {
         Debug.LogError("Object reference not set to an instance of an object");

@@ -163,7 +163,7 @@ AnimatorStateMachine:
     m_Position: {x: 800, y: 420, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1081634538581031079}
-    m_Position: {x: -190, y: 390, z: 0}
+    m_Position: {x: -200, y: 410, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: -5008427764868469372}
@@ -557,6 +557,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0
+    functionName: movingAtk
+    data: SpineEvent
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
   - time: 0.15
     functionName: crashSlash
     data: SpineEvent
@@ -944,15 +951,15 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
-  - time: 0.6667
-    functionName: OnAnimationComplete
+  - time: 0
+    functionName: movinglong
     data: SpineEvent
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
   - time: 0.6667
-    functionName: evocationSword
+    functionName: OnAnimationComplete
     data: SpineEvent
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -1908,6 +1915,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
+  - time: 0
+    functionName: movingAtk
+    data: SpineEvent
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
   - time: 0.45
     functionName: OnAnimationComplete
     data: SpineEvent
@@ -2149,6 +2163,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0
+    functionName: movingAtk
+    data: SpineEvent
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
   - time: 0.8333
     functionName: OnAnimationComplete
     data: SpineEvent
@@ -3089,6 +3110,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0
+    functionName: movingAtk
+    data: SpineEvent
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
   - time: 0.8333
     functionName: OnAnimationComplete
     data: SpineEvent
@@ -3182,6 +3210,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0
+    functionName: movingAtk
+    data: SpineEvent
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
   - time: 0.4167
     functionName: OnAnimationComplete
     data: SpineEvent
@@ -3275,6 +3310,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.3333
+    functionName: movingAtk
+    data: SpineEvent
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
   - time: 0.8333
     functionName: OnAnimationComplete
     data: SpineEvent
@@ -3762,13 +3804,6 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: evocationSword
-    data: SpineEvent
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 1
-  - time: 0.1667
     functionName: evocationSword
     data: SpineEvent
     objectReferenceParameter: {fileID: 0}
@@ -6934,6 +6969,13 @@ AnimationClip:
   m_Events:
   - time: 0
     functionName: evocationSword
+    data: SpineEvent
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 1
+  - time: 0
+    functionName: movingAtk
     data: SpineEvent
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

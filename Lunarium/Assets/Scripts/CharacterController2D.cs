@@ -17,10 +17,15 @@ public class CharacterController2D : MonoBehaviour
     private int jumpCounter = 0;
     private int maxJumps = 2;
     private float jumpDuration = 0.5f;
+    public float fallMultiplier = 2.5f;
+
+    private float accelerationSpeed = 100f;
+
+    private float maxSpeed = 100f;
 
     public float knockbackForce = 10f;
     public float knockbackDuration = 0.5f;
-    public float fallMultiplier = 2.5f;
+
     Vector2 playerPosition;
     Vector2 HitPosition;
     public GameObject Hit;
@@ -31,6 +36,7 @@ public class CharacterController2D : MonoBehaviour
     public float dashDuration = 0.5f;
     private float dashTime;
     private bool dashing;
+    private bool Atkdashing;
     public float dashCoolDown = 1f;
     private float coolDownTime;
     public float crouchSpeed = 2f;
@@ -315,7 +321,7 @@ if (Input.GetButton("Fire3")&& !dashing && coolDownTime <= 0)
     
     private void FixedUpdate()
     {
-        if (dashing)
+        if (dashing || Atkdashing)
         {
             if (moveX < 0)
         {
@@ -333,11 +339,14 @@ if (Input.GetButton("Fire3")&& !dashing && coolDownTime <= 0)
         else if (moveX == 0)
         {
                 dashing = false;
+                Atkdashing = false;
         }
 
             if (dashTime <= 0)
             {
                 dashing = false;
+                Atkdashing = false;
+
             }
         }
     }
@@ -410,6 +419,24 @@ public void dashEff()
 {
    Smagic.Play();
    Instantiate(DashEff, dash.position, transform.rotation);
+}
+
+public void movingAtk()
+{
+currentSpeed = Mathf.MoveTowards(currentSpeed, maxSpeed, accelerationSpeed * Time.deltaTime);
+    transform.Translate(Vector3.right * currentSpeed * Time.deltaTime);
+
+}
+
+public void movinglong()
+{
+    Smagic.Play();
+    Atkdashing = true;
+    coolDownTime = dashCoolDown;
+    dashTime = dashDuration;
+   Instantiate(DashEff, dash.position, transform.rotation);
+
+    
 }
 
 public void Respawn()
