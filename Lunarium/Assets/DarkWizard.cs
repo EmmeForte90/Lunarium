@@ -25,7 +25,8 @@ private float attackTimer;
 public float attackCooldown = 2f; // durata del cooldown dell'attacco
 private SkeletonMecanim skeletonMecanim;
     private Color originalColor;
-
+    [SerializeField] GameObject Fireball;
+    [SerializeField] Transform Fireballpoint;
     [SerializeField] GameObject DeathBack;
     [SerializeField] GameObject Death;
  private float pauseDuration = 1f; // durata della pausa
@@ -131,6 +132,13 @@ private State currentState;
         transform.localScale = new Vector2(1f, 1f);
     }
     }
+
+void Shoot()
+    {
+        Instantiate(Fireball, Fireballpoint.transform.position, transform.rotation);
+    }
+
+
 
 private void CheckState()
 {

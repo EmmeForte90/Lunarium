@@ -236,6 +236,8 @@ public void Damage(int damage)
     {
         health.currentHealth -= damage;
         anmHurt();
+
+        /////////////////////////
         knockbackTimer = knockbackDuration;
     Vector2 knockbackDirection = (transform.position - player.transform.position).normalized;
     rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);

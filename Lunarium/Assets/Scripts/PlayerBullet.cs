@@ -15,7 +15,7 @@ public class PlayerBullet : MonoBehaviour
     private float lifeTime = 0.5f;
     //Riservato allo shotgun
     PlayerHealth Less;
-    Rigidbody2D myRigidbody;
+    Rigidbody2D rb;
     //Il corpo rigido
     CharacterController2D player;
     Enemy Enemy;
@@ -45,7 +45,7 @@ public class PlayerBullet : MonoBehaviour
         void Start()
     {
         target = GameObject.FindWithTag(targetTag);
-        myRigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         //Recupera i componenti del rigidbody
         player = FindObjectOfType<CharacterController2D>();
         Less = FindObjectOfType<PlayerHealth>();
@@ -100,7 +100,7 @@ void Update()
     {
         velocityX = shotgunSpeed;
     }
-    myRigidbody.velocity = new Vector2(velocityX, 0f);
+    rb.velocity = new Vector2(velocityX, 0f);
     FlipSprite();
 }
 #endregion
@@ -109,13 +109,13 @@ void Update()
 #region  FlipSprite
     void FlipSprite()
     {
-        bool bulletHorSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
+        bool bulletHorSpeed = Mathf.Abs(rb.velocity.x) > Mathf.Epsilon;
         //se il player si sta muovendo le sue coordinate x sono maggiori di quelle e
         //di un valore inferiore a 0
 
         if (bulletHorSpeed) //Se il player si sta muovendo
         {
-            transform.localScale = new Vector2 (Mathf.Sign(myRigidbody.velocity.x), 1f);
+            transform.localScale = new Vector2 (Mathf.Sign(rb.velocity.x), 1f);
             //La scala assume un nuovo vettore e il rigidbody sull'asse x 
             //viene modificato mentre quello sull'asse y no. 
         }
@@ -131,12 +131,12 @@ void Update()
         
         if(Dagger || Sword && !Axe && !Lance)
         {
-         myRigidbody.velocity = new Vector2 (xSpeed, 0f);
+         rb.velocity = new Vector2 (xSpeed, 0f);
 
         }
         else if(!Dagger && !Sword && Axe && !Lance)
         {
-        myRigidbody.velocity = new Vector2 (shotgunSpeed, 0f);
+        rb.velocity = new Vector2 (shotgunSpeed, 0f);
         }
         else if(!Dagger && !Sword && !Axe && Lance)
         {
