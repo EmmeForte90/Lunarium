@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1b3b4b945939a54ea0b23d3396115fb, type: 3}
-  m_Name: skeleton_SkeletonData
+  m_Name: lg_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: 85b87fe271e498f40bd8439243483b9d, type: 2}
+  - {fileID: 11400000, guid: 57bfd90ef555aa34ba9f8bd60b058291, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: 599de2bff5784ed4a954778e89c31482, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: 6e2abda70d296224ead57f7f7c808876, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   toAnimation: []
   duration: []
   defaultMix: 0.2
-  controller: {fileID: 0}
+  controller: {fileID: 9100000, guid: 6b323aea73941e5488bf39ac459392db, type: 2}

@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4021627870366391382}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.17, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: 0.76, y: -0.18, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6492264743620994210}
@@ -350,7 +350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnPoint: {fileID: 6784971808690327999}
   sceneName: Test
-  Sdeng: {fileID: 9060609366315020121, guid: 9c91bdbb32880d0499de24da1430d9ba, type: 3}
+  Sdeng: {fileID: 3769966992156755340, guid: 7e3990fd17358d847b3b717467390780, type: 3}
   Pos: {fileID: 6492264745088941517}
 --- !u!61 &6492264744462484125
 BoxCollider2D:
@@ -434,7 +434,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6942298321609606490}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.08, y: -0.9, z: 0}
   m_LocalScale: {x: 1.9999999, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []

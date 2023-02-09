@@ -36,6 +36,7 @@ private float knockbackTimer;
 private float pauseTimer; // timer per la pausa
   private bool IsAttacking = false; // indica se il nemico sta inseguendo il player
     [SerializeField] bool isLittle = false; // indica se il nemico sta inseguendo il player
+public float colorChangeDuration = 0.5f;
 
 [Header("Audio")]
 [SerializeField] AudioSource SwSl;
@@ -245,32 +246,44 @@ public void Damage(int damage)
     }
 
 public void anmHurt()
-    {
-        TemporaryChangeColor(Color.red);
-        if(isLittle)
-        {
+{
+    StartCoroutine(TemporaryChangeColor(Color.red));
+    
         animator.SetTrigger("TakeDamage"); // attiva il trigger "TakeDamage" dell'animatore
-        }
-        if (rb != null)
-            {
-                //StartCoroutine(JumpBackCo(rb)); // avvia la routine per il salto
-            }
-        if (health.currentHealth <= 0f) // se la salute è uguale o inferiore a 0
+    
+    if (rb != null)
         {
-            DeathAnim();
+            //StartCoroutine(JumpBackCo(rb)); // avvia la routine per il salto
         }
-    }
-
-public void TemporaryChangeColor(Color color)
+    if (health.currentHealth <= 0f) // se la salute è uguale o inferiore a 0
     {
-        skeletonMecanim.Skeleton.SetColor(color);
-        Invoke("ResetColor", 0.5f);
+        DeathAnim();
     }
+}
 
-    private void ResetColor()
+public IEnumerator TemporaryChangeColor(Color color)
+{
+    float t = 0;
+    Color currentColor = skeletonMecanim.Skeleton.GetColor();
+    while (t < 1)
     {
-        skeletonMecanim.Skeleton.SetColor(originalColor);
+        t += Time.deltaTime / colorChangeDuration;
+        skeletonMecanim.Skeleton.SetColor(Color.Lerp(currentColor, color, t));
+        yield return null;
     }
+    StartCoroutine(ResetColor());
+}
 
+private IEnumerator ResetColor()
+{
+    float t = 0;
+    Color currentColor = skeletonMecanim.Skeleton.GetColor();
+    while (t < 1)
+    {
+        t += Time.deltaTime / colorChangeDuration;
+        skeletonMecanim.Skeleton.SetColor(Color.Lerp(currentColor, originalColor, t));
+        yield return null;
+    }
+}
 
 }

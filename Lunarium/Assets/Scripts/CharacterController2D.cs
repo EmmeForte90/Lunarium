@@ -237,7 +237,7 @@ if (Input.GetButtonDown("Fire2"))
         if (jumpCounter == 2)
         {
             Smagic.Play();
-            Instantiate(Circle, circlePoint.position, transform.rotation);
+            Instantiate(Circle, circlePoint.transform.position, transform.rotation);
         }
 
         StartCoroutine(JumpDurationCoroutine(jumpDuration));
@@ -421,11 +421,9 @@ public void dashEff()
    Instantiate(DashEff, dash.position, transform.rotation);
 }
 
-public void movingAtk()
-{
-currentSpeed = Mathf.MoveTowards(currentSpeed, maxSpeed, accelerationSpeed * Time.deltaTime);
+public void MovingAtk() {
+    currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, accelerationSpeed * Time.deltaTime);
     transform.Translate(Vector3.right * currentSpeed * Time.deltaTime);
-
 }
 
 public void movinglong()

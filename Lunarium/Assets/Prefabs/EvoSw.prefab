@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7435242847763051693}
   - component: {fileID: 4050769020310705641}
   - component: {fileID: 7459995249035710526}
-  - component: {fileID: 2513448429885290761}
   - component: {fileID: 2440137872885659618}
   m_Layer: 0
   m_Name: EvoSw
@@ -31,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3769966992156755340}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -147.84941, y: 4.2159305, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 5}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -65,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 62e159debfe14fb4fb14677944188b3b, type: 2}
+  - {fileID: 2100000, guid: 65877cc58f11e6a4684efe9b10794061, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -99,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 3ea7fa7fe6b86e1418f8b77c4d5c7f42, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 229bab576db12854aba097e607c9ff54, type: 2}
   initialSkinName: 
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0
@@ -142,21 +141,6 @@ MonoBehaviour:
   lifeTime: 0.5
   thisObj: {fileID: 3769966992156755340}
   isDash: 0
---- !u!114 &2513448429885290761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3769966992156755340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6f06bce2723db440a83d766aadd5e43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletSpeed: 1
-  isClang: 0
-  Sclang: {fileID: 0}
 --- !u!50 &2440137872885659618
 Rigidbody2D:
   serializedVersion: 4

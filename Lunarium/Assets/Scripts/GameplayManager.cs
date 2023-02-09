@@ -160,6 +160,19 @@ public void restoreOnePotion()
             PauseMenu.gameObject.SetActive(false);
         }
 
+        public void Dialogue()
+        //Funzione pausa
+        {
+            PauseStop = true;
+            //Time.timeScale = 0f;
+        }
+        public void EndDialogue()
+        //Funzione pausa
+        {
+            PauseStop = false;
+            //Time.timeScale = 0f;
+        }
+
 #endregion
 
     

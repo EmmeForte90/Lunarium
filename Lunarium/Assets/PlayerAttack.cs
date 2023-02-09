@@ -27,12 +27,16 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private GameObject bullet;
 
     public Transform slashpoint;
+    private SkeletonMecanim skeletonMecanim;
 
     [Header("VFX")]
     // Variabile per il gameobject del proiettile
     [SerializeField] GameObject blam;
     [SerializeField] GameObject EvocationSword;
     [SerializeField] public Transform gun;
+    [SerializeField] public Transform SE;
+
+
 
     [Header("Abilitations")]
     [SerializeField] public GameplayManager gM;
@@ -82,6 +86,8 @@ public static PlayerAttack Instance
     // Update is called once per frame
     void Update()
     {
+        if(!gM.PauseStop)
+        {
         // gestione dell'input dello sparo
 if (Input.GetButtonDown("Fire2"))
 {
@@ -118,7 +124,7 @@ if (Input.GetButtonDown("Fire1"))
         {
             currentCooldown -= Time.deltaTime;
         }
-
+        }
     }
 
 
@@ -130,8 +136,8 @@ if (Time.time > nextAttackTime)
     isAttacking = true;
     nextAttackTime = Time.time + 1f / attackRate;
     Smagic.Play();
-    Instantiate(blam, gun.position, transform.rotation);
-    Instantiate(bullet, gun.position, transform.rotation);
+    Instantiate(blam, gun.transform.position, transform.rotation);
+    Instantiate(bullet, gun.transform.position, transform.rotation);
     }    
 }
 
@@ -139,9 +145,11 @@ if (Time.time > nextAttackTime)
 void evocationSword()
 {
     Smagic.Play();
-    Instantiate(EvocationSword, gun.position, transform.rotation);
-    
+    Instantiate(EvocationSword, SE.transform.position, transform.rotation); 
+
 }
+
+
 
 void crashSlash()
 {

@@ -25,6 +25,7 @@ private float attackTimer;
 public float attackCooldown = 2f; // durata del cooldown dell'attacco
 private SkeletonMecanim skeletonMecanim;
     private Color originalColor;
+public float colorChangeDuration = 0.5f;
 
     [SerializeField] GameObject DeathBack;
     [SerializeField] GameObject Death;
@@ -204,32 +205,46 @@ public void Damage(int damage)
     }
 
 public void anmHurt()
+{
+    StartCoroutine(TemporaryChangeColor(Color.red));
+    if(isLittle)
     {
-        TemporaryChangeColor(Color.red);
-        if(isLittle)
-        {
         animator.SetTrigger("TakeDamage"); // attiva il trigger "TakeDamage" dell'animatore
-        }
-        if (rb != null)
-            {
-                //StartCoroutine(JumpBackCo(rb)); // avvia la routine per il salto
-            }
-        if (health.currentHealth <= 0f) // se la salute è uguale o inferiore a 0
+    }
+    if (rb != null)
         {
-            DeathAnim();
+            //StartCoroutine(JumpBackCo(rb)); // avvia la routine per il salto
         }
-    }
-
-public void TemporaryChangeColor(Color color)
+    if (health.currentHealth <= 0f) // se la salute è uguale o inferiore a 0
     {
-        skeletonMecanim.Skeleton.SetColor(color);
-        Invoke("ResetColor", 0.5f);
+        DeathAnim();
     }
+}
 
-    private void ResetColor()
+public IEnumerator TemporaryChangeColor(Color color)
+{
+    float t = 0;
+    Color currentColor = skeletonMecanim.Skeleton.GetColor();
+    while (t < 1)
     {
-        skeletonMecanim.Skeleton.SetColor(originalColor);
+        t += Time.deltaTime / colorChangeDuration;
+        skeletonMecanim.Skeleton.SetColor(Color.Lerp(currentColor, color, t));
+        yield return null;
     }
+    StartCoroutine(ResetColor());
+}
+
+private IEnumerator ResetColor()
+{
+    float t = 0;
+    Color currentColor = skeletonMecanim.Skeleton.GetColor();
+    while (t < 1)
+    {
+        t += Time.deltaTime / colorChangeDuration;
+        skeletonMecanim.Skeleton.SetColor(Color.Lerp(currentColor, originalColor, t));
+        yield return null;
+    }
+}
 
 
 public void Sword()

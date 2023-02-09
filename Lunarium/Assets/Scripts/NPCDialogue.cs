@@ -20,10 +20,13 @@ public class NPCDialogue : MonoBehaviour
     private int dialogueIndex; // variable to keep track of the dialogue status
     private float elapsedTime; // variable to keep track of the elapsed time
     private Animator anim; // componente Animator del personaggio
-
+    GameplayManager gM;
     public bool isInteragible;
     public bool heFlip;
-
+    public CanvasGroup UI;
+    private bool fadeIn;
+    private bool fadeOut;
+    private float fadeTime = 0.2f;
     private bool _isInTrigger;
     private bool _isDialogueActive;
 [Header("Audio")]
@@ -39,16 +42,31 @@ void Awake()
 
 
     void Start()
-    {        
+    {      
+        UI.alpha = 0;  
         button.gameObject.SetActive(false); // Initially hide the dialogue text
-        dialogueText.gameObject.SetActive(false); // Initially hide the dialogue text
-        dialogueBox.gameObject.SetActive(false); // Hide dialogue text when player exits the trigger
+        //dialogueText.gameObject.SetActive(false); // Initially hide the dialogue text
+        //dialogueBox.gameObject.SetActive(false); // Hide dialogue text when player exits the trigger
         anim = GetComponent<Animator>();
+        if (gM == null)
+        {
+            gM = FindObjectOfType<GameplayManager>();
+        }
     }
 
     void Update()
     {
-        anim.SetBool("talk", _isInTrigger);
+        if(fadeIn)
+        {
+            FadeIn();
+        }
+
+        if(fadeOut)
+        {
+            FadeOut();
+        }
+
+
         if(heFlip)
         {
         FacePlayer();
@@ -56,13 +74,32 @@ void Awake()
 
         if (_isInTrigger && Input.GetKeyDown(KeyCode.E) && !_isDialogueActive)
         {
+            anim.SetBool("talk", true);
             StartCoroutine(ShowDialogue());
+            gM.Dialogue();
         }
         else if (_isDialogueActive && Input.GetKeyDown(KeyCode.E))
         {
             NextDialogue();
         }
     }
+
+public void FadeIn()
+{
+UI.alpha = Mathf.Lerp(UI.alpha, 1, Time.deltaTime / fadeTime);
+}
+
+public void FadeOut()
+{
+UI.alpha = Mathf.Lerp(UI.alpha, 0, Time.deltaTime / fadeTime);
+if(UI.alpha >= 0)
+{
+UI.alpha = 0;
+}
+
+}
+
+
 
 public void clang()
 {
@@ -88,42 +125,61 @@ Clang.Play();
         {
             button.gameObject.SetActive(false); // Initially hide the dialogue text
             _isInTrigger = false;
-            anim.SetBool("talk", _isInTrigger);
+            //anim.SetBool("talk", _isInTrigger);
             StopCoroutine(ShowDialogue());
             dialogueIndex++; // Increment the dialogue index
             if (dialogueIndex >= dialogue.Length)
             {
                 dialogueIndex = 0;
                 _isDialogueActive = false;
-                dialogueBox.gameObject.SetActive(false); // Hide dialogue text when player exits the trigger
-                dialogueText.gameObject.SetActive(false); // Hide dialogue text when player exits the trigger
+                //dialogueBox.gameObject.SetActive(false); // Hide dialogue text when player exits the trigger
+                //dialogueText.gameObject.SetActive(false); // Hide dialogue text when player exits the trigger
                 talk.Stop();
+                anim.SetBool("talk", false);
+
 
             }
         }
     }
 
     IEnumerator ShowDialogue()
+{
+    talk.Play();
+    fadeIn = true;
+    fadeOut = false;
+
+    _isDialogueActive = true;
+    elapsedTime = 0; // reset elapsed time
+    //dialogueBox.gameObject.SetActive(true); // Show dialogue box
+    //dialogueText.gameObject.SetActive(true); // Show dialogue text
+    string currentDialogue = dialogue[dialogueIndex]; // Get the current dialogue
+    dialogueText.text = ""; // Clear the dialogue text
+    for (int i = 0; i < currentDialogue.Length; i++)
     {
-        talk.Play();
-        _isDialogueActive = true;
-        elapsedTime = 0; // reset elapsed time
-        dialogueBox.gameObject.SetActive(true); // Show dialogue box
-        dialogueText.gameObject.SetActive(true); // Show dialogue text
-        string currentDialogue = dialogue[dialogueIndex]; // Get the current dialogue
-        dialogueText.text = ""; // Clear the dialogue text
-        for (int i = 0; i < currentDialogue.Length; i++)
+        dialogueText.text += currentDialogue[i]; // Add one letter at a time
+        elapsedTime += Time.deltaTime; // Update the elapsed time
+        if (elapsedTime >= dialogueDuration)
         {
-            dialogueText.text += currentDialogue[i]; // Add one letter at a time
-            elapsedTime += Time.deltaTime; // Update the elapsed time
-            if (elapsedTime >= dialogueDuration)
-            {
-                break;
-            }
-            yield return new WaitForSeconds(0.05f); // Wait before showing the next letter
+            break;
         }
+        yield return new WaitForSeconds(0.05f); // Wait before showing the next letter
+    }
+
+        anim.SetBool("talk", false);
+        talk.Stop();
+
+
+    if (dialogueIndex == dialogue.Length)
+    {
+        
+        dialogueIndex = 0;
+        _isDialogueActive = false;
+        //dialogueBox.gameObject.SetActive(false); // Hide dialogue text when player exits the trigger
+        //dialogueText.gameObject.SetActive(false); // Hide dialogue text when player exits the trigger
 
     }
+}
+
 
     void NextDialogue()
     {
@@ -132,11 +188,15 @@ Clang.Play();
         dialogueIndex++; // Increment the dialogue index
         if (dialogueIndex >= dialogue.Length)
         {
+            //Quando il dialogo è finito
+            fadeIn = false;
+            fadeOut = true;
             talk.Stop();
+            gM.EndDialogue();
             dialogueIndex = 0;
             _isDialogueActive = false;
-            dialogueBox.gameObject.SetActive(false); // Hide dialogue text when player exits the trigger
-            dialogueText.gameObject.SetActive(false); // Hide dialogue text when player exits the trigger
+            //dialogueBox.gameObject.SetActive(false); // Hide dialogue text when player exits the trigger
+            //dialogueText.gameObject.SetActive(false); // Hide dialogue text when player exits the trigger
         }
         else
         {
