@@ -37,6 +37,10 @@ public class CharacterController2D : MonoBehaviour
     private float dashTime;
     private bool dashing;
     private bool Atkdashing;
+    private float dashForceAtk = 40f;
+    private bool attackNormal;
+
+
     public float dashCoolDown = 1f;
     private float coolDownTime;
     public float crouchSpeed = 2f;
@@ -349,6 +353,35 @@ if (Input.GetButton("Fire3")&& !dashing && coolDownTime <= 0)
 
             }
         }
+
+        if (attackNormal)
+        {
+            if (moveX < 0)
+        {
+
+           rb.AddForce(-transform.right * dashForceAtk, ForceMode2D.Impulse);
+            dashTime -= Time.deltaTime;
+        }
+        else if (moveX > 0)
+        {
+            //anim.SetTrigger("Dash");
+
+            rb.AddForce(transform.right * dashForceAtk, ForceMode2D.Impulse);
+            dashTime -= Time.deltaTime;
+        }
+        else if (moveX == 0)
+        {
+                dashing = false;
+                attackNormal = false;
+        }
+
+            if (dashTime <= 0)
+            {
+                dashing = false;
+                attackNormal = false;
+
+            }
+        }
     }
 
 private IEnumerator JumpDurationCoroutine(float duration)
@@ -422,13 +455,17 @@ public void dashEff()
 }
 
 public void MovingAtk() {
-    currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, accelerationSpeed * Time.deltaTime);
-    transform.Translate(Vector3.right * currentSpeed * Time.deltaTime);
+       
+    attackNormal = true;
+    coolDownTime = dashCoolDown;
+    dashTime = dashDuration;
+   Instantiate(DashEff, dash.position, transform.rotation);
+    //currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, accelerationSpeed * Time.deltaTime);
+    //transform.Translate(Vector3.right * currentSpeed * Time.deltaTime);
 }
 
 public void movinglong()
 {
-    Smagic.Play();
     Atkdashing = true;
     coolDownTime = dashCoolDown;
     dashTime = dashDuration;

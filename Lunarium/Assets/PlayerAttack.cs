@@ -35,6 +35,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] GameObject EvocationSword;
     [SerializeField] public Transform gun;
     [SerializeField] public Transform SE;
+    public VibrateCinemachine vibrateCinemachine;
 
 
 
@@ -51,6 +52,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] AudioSource Smagic;
     [SerializeField] AudioSource SRun;
     [SerializeField] AudioSource SCrash;
+    [SerializeField] AudioSource SBilama;
 
 public static PlayerAttack instance;
 public static PlayerAttack Instance
@@ -126,7 +128,22 @@ if (Input.GetButtonDown("Fire1"))
         }
         }
     }
-
+void Attack()
+    {
+        if (currentCooldown <= 0)
+        {
+            isAttacking = true;
+            comboCounter++;
+            if (comboCounter > maxCombo)
+            {
+                comboCounter = 1;
+            }
+            anim.SetInteger("ComboCounter", comboCounter);
+            anim.SetTrigger("Attack1");
+            currentCooldown = attackCooldown;
+            comboTimer = 0.5f;
+        }
+    }
 
     void blastAnm()
 {
@@ -144,40 +161,33 @@ if (Time.time > nextAttackTime)
 
 void evocationSword()
 {
-    Smagic.Play();
+    //Smagic.Play();
     Instantiate(EvocationSword, SE.transform.position, transform.rotation); 
 
 }
 
+void biSound()
+{
+    Smagic.Stop();
+    SBilama.Play();
 
+}
 
 void crashSlash()
 {
+    vibrateCinemachine.Vibrate(0.2f, 0.2f);
+    Smagic.Stop();
     SCrash.Play();
 
 }
 
 public void slashSound()
     {
+        Smagic.Stop();
         SwSl.Play();
     } 
 
-    void Attack()
-    {
-        if (currentCooldown <= 0)
-        {
-            isAttacking = true;
-            comboCounter++;
-            if (comboCounter > maxCombo)
-            {
-                comboCounter = 1;
-            }
-            anim.SetInteger("ComboCounter", comboCounter);
-            anim.SetTrigger("Attack1");
-            currentCooldown = attackCooldown;
-            comboTimer = 0.5f;
-        }
-    }
+    
 
    #region CambioMagia
 public void SetBulletPrefab(GameObject newBullet)
