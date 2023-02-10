@@ -53,6 +53,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] AudioSource SRun;
     [SerializeField] AudioSource SCrash;
     [SerializeField] AudioSource SBilama;
+    [SerializeField] AudioSource SSbam;
 
 public static PlayerAttack instance;
 public static PlayerAttack Instance
@@ -91,71 +92,79 @@ public static PlayerAttack Instance
         if(!gM.PauseStop)
         {
         // gestione dell'input dello sparo
-if (Input.GetButtonDown("Fire2"))
-{
-    if(Less.currentMana > 0)
+        if (Input.GetButtonDown("Fire2"))
         {
-    anim.SetTrigger("isShoot");
+            if(Less.currentMana > 0)
+                {
+                    if (Time.time > nextAttackTime)
+                    {
+                        isAttacking = true;
+                        nextAttackTime = Time.time + 1f / attackRate;
+                        anim.SetTrigger("isShoot");
+                        }
+                }
         }
+
+        if (Input.GetButtonDown("Fire1"))
+            {
+                Attack();
+            }
+            // gestione del timer della combo
+            if (comboCounter > 0)
+            {
+                comboTimer -= Time.deltaTime;
+                if (comboTimer <= 0)
+                {
+                    isAttacking= false;
+                    comboCounter = 0;
+                    comboTimer = 0.5f;
+                    // Inizia il timer di attesa
+                    StartCoroutine(WaitBeforeNextAttack());
+                }
+            }
+
+    // gestione del cooldown dell'attacco
+    if (currentCooldown > 0)
+    {
+        currentCooldown -= Time.deltaTime;
+    }
 }
-
-if (Input.GetButtonDown("Fire1"))
-        {
-            Attack();
-        }
-            shootTimer -= Time.deltaTime;
-            if (shootTimer <= 0)
-            {
-                isAttacking = false;
-                shootTimer = 0.5f;
-            }
-        // gestione del timer della combo
-        if (comboCounter > 0)
-        {
-            comboTimer -= Time.deltaTime;
-            if (comboTimer <= 0)
-            {
-                isAttacking= false;
-                comboCounter = 0;
-                comboTimer = 0.5f;
-            }
-        }
-
-        // gestione del cooldown dell'attacco
-        if (currentCooldown > 0)
-        {
-            currentCooldown -= Time.deltaTime;
-        }
-        }
     }
 void Attack()
+{
+    if (currentCooldown <= 0)
     {
-        if (currentCooldown <= 0)
+        isAttacking = true;
+        comboCounter++;
+        if (comboCounter > maxCombo)
         {
-            isAttacking = true;
-            comboCounter++;
-            if (comboCounter > maxCombo)
-            {
-                comboCounter = 1;
-            }
-            anim.SetInteger("ComboCounter", comboCounter);
-            anim.SetTrigger("Attack1");
-            currentCooldown = attackCooldown;
-            comboTimer = 0.5f;
+            comboCounter = 1;
         }
+        anim.SetInteger("ComboCounter", comboCounter);
+        anim.SetTrigger("Attack1");
+        currentCooldown = attackCooldown;
+        comboTimer = 0.5f;
     }
+}
+
+IEnumerator WaitBeforeNextAttack()
+{
+    shootTimer = 0.5f;
+    while (shootTimer > 0)
+    {
+        shootTimer -= Time.deltaTime;
+        yield return null;
+    }
+}
 
     void blastAnm()
 {
-   
-if (Time.time > nextAttackTime)
-    {
-    isAttacking = true;
-    nextAttackTime = Time.time + 1f / attackRate;
     Smagic.Play();
     Instantiate(blam, gun.transform.position, transform.rotation);
     Instantiate(bullet, gun.transform.position, transform.rotation);
-    }    
+    isAttacking = false;
+
+    
 }
 
 
@@ -168,8 +177,13 @@ void evocationSword()
 
 void biSound()
 {
-    Smagic.Stop();
     SBilama.Play();
+
+}
+void sbam()
+{
+    vibrateCinemachine.Vibrate(0.2f, 0.2f);
+    SSbam.Play();
 
 }
 

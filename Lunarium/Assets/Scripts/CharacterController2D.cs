@@ -71,6 +71,9 @@ public class CharacterController2D : MonoBehaviour
     [Header("VFX")]
     // Variabile per il gameobject del proiettile
     [SerializeField] GameObject Circle;
+        [SerializeField] GameObject dust;
+        [SerializeField] GameObject DustImp;
+
     [SerializeField] public Transform circlePoint;
 
     [Header("Abilitations")]
@@ -94,8 +97,15 @@ public class CharacterController2D : MonoBehaviour
 [Header("Audio")]
 [SerializeField] AudioSource SwSl;
 [SerializeField] AudioSource Smagic;
-[SerializeField] AudioSource SRun;
+[SerializeField] AudioSource Srun;
+[SerializeField] AudioSource Swalk;
+[SerializeField] AudioSource SGrab;
 [SerializeField] AudioSource SCrash;
+[SerializeField] AudioSource Sdash;
+[SerializeField] AudioSource Shop;
+[SerializeField] AudioSource Surg;
+
+
 
 
 
@@ -151,16 +161,16 @@ public static CharacterController2D Instance
             Respawn();
         }
 
-        if(!gM.PauseStop || IsKnockback)
+        if(!gM.PauseStop)
         {
 
-#region Move
-moveX = Input.GetAxis("Horizontal");
-currentSpeed = moveSpeed;
-if (isRunning && !Atk.isAttacking)
-{
-    if (moveX != 0)
-    {
+        #region Move
+        moveX = Input.GetAxis("Horizontal");
+        currentSpeed = moveSpeed;
+        if (isRunning && !Atk.isAttacking)
+        {
+        if (moveX != 0)
+        {
         if (isCrouching)
         {
             currentSpeed = moveSpeed * crouchSpeed;
@@ -342,8 +352,21 @@ if (Input.GetButton("Fire3")&& !dashing && coolDownTime <= 0)
         }
         else if (moveX == 0)
         {
-                dashing = false;
-                Atkdashing = false;
+            if (rb.transform.localScale.x == -1)
+        {
+
+           rb.AddForce(-transform.right * dashForce, ForceMode2D.Impulse);
+            dashTime -= Time.deltaTime;
+        }
+        else if (rb.transform.localScale.x == 1)
+        {
+            //anim.SetTrigger("Dash");
+
+            rb.AddForce(transform.right * dashForce, ForceMode2D.Impulse);
+            dashTime -= Time.deltaTime;
+        }
+                //dashing = false;
+                //Atkdashing = false;
         }
 
             if (dashTime <= 0)
@@ -435,6 +458,9 @@ private void OnTriggerEnter2D(Collider2D collision)
 
 
 
+
+
+
 IEnumerator stopPlayer()
 {
 isLanding = true; 
@@ -448,20 +474,82 @@ public void AnmHurt()
             anim.SetTrigger("TakeDamage");
 }
 
+public void dustImpact()
+{
+       SGrab.Play();
+   Instantiate(DustImp, circlePoint.transform.position, transform.rotation);
+}
+
+public void Dust()
+{
+       Srun.Play();
+   Instantiate(dust, circlePoint.transform.position, transform.rotation);
+}
+
+public void Hop()
+{
+       Shop.Play();
+}
+
+
+
+public void SoundUrgh()
+{
+       Surg.Play();
+}
+
+public void walk()
+{   
+    Swalk.Play();
+   Instantiate(dust, circlePoint.transform.position, transform.rotation);
+}
+
 public void dashEff()
 {
-   Smagic.Play();
+   Sdash.Play();
    Instantiate(DashEff, dash.position, transform.rotation);
 }
 
 public void MovingAtk() {
        
-    attackNormal = true;
-    coolDownTime = dashCoolDown;
-    dashTime = dashDuration;
+    //attackNormal = true;
+    //coolDownTime = dashCoolDown;
+    //dashTime = dashDuration;
+
+    /*if (moveX < 0)
+        {
+
+           rb.AddForce(-transform.right * dashForceAtk, ForceMode2D.Impulse);
+            dashTime -= Time.deltaTime;
+        }
+        else if (moveX > 0)
+        {
+            //anim.SetTrigger("Dash");
+
+            rb.AddForce(transform.right * dashForceAtk, ForceMode2D.Impulse);
+            dashTime -= Time.deltaTime;
+        }
+        else if (moveX == 0)
+        {
+            if (rb.transform.localScale.x == -1)
+        {
+
+           rb.AddForce(-transform.right * dashForceAtk, ForceMode2D.Impulse);
+            dashTime -= Time.deltaTime;
+        }
+        else if (rb.transform.localScale.x == 1)
+        {
+            //anim.SetTrigger("Dash");
+
+            rb.AddForce(transform.right * dashForceAtk, ForceMode2D.Impulse);
+            dashTime -= Time.deltaTime;
+        }
+                //dashing = false;
+                //Atkdashing = false;
+        }*/
    Instantiate(DashEff, dash.position, transform.rotation);
-    //currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, accelerationSpeed * Time.deltaTime);
-    //transform.Translate(Vector3.right * currentSpeed * Time.deltaTime);
+    currentSpeed = Mathf.Lerp(currentSpeed, maxSpeed, accelerationSpeed * Time.deltaTime);
+    transform.Translate(Vector3.right * currentSpeed * Time.deltaTime);
 }
 
 public void movinglong()

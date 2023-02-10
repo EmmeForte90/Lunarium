@@ -15,7 +15,7 @@ public class PlayerBullet : MonoBehaviour
     private float lifeTime = 0.5f;
     //Riservato allo shotgun
     PlayerHealth Less;
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
     //Il corpo rigido
     CharacterController2D player;
     Enemy Enemy;
@@ -45,7 +45,6 @@ public class PlayerBullet : MonoBehaviour
         void Start()
     {
         target = GameObject.FindWithTag(targetTag);
-        rb = GetComponent<Rigidbody2D>();
         //Recupera i componenti del rigidbody
         player = FindObjectOfType<CharacterController2D>();
         Less = FindObjectOfType<PlayerHealth>();
@@ -62,12 +61,12 @@ public class PlayerBullet : MonoBehaviour
             if(player.transform.localScale.x > 0)
             {
             var direction = transform.right + Vector3.up;
-            GetComponent<Rigidbody2D>().AddForce(direction * lanceSpeed, ForceMode2D.Impulse);
+            rb.AddForce(direction * lanceSpeed, ForceMode2D.Impulse);
             }
             else if(player.transform.localScale.x < 0)
             {
             var direction = -transform.right + Vector3.up;
-            GetComponent<Rigidbody2D>().AddForce(direction * lanceSpeed, ForceMode2D.Impulse);
+            rb.AddForce(direction * lanceSpeed, ForceMode2D.Impulse);
             }
         }
         transform.Translate(LaunchOffset);
@@ -154,7 +153,7 @@ void Update()
     void CostMP()
     {
         
-    if (Dagger || Sword || Axe || Lance || Bilama)
+    if (Dagger || Sword || Axe || Bilama)
     {
         Less.TakeManaDamage(MPCost);
     }

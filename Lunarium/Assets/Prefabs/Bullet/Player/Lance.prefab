@@ -138,10 +138,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2486198410829383315}
   - component: {fileID: 3292675165274114158}
-  - component: {fileID: 1998755360938069088}
   - component: {fileID: 2351614593354440497}
   - component: {fileID: 1603823122303426053}
   - component: {fileID: 3940427535083135545}
+  - component: {fileID: 7969481493265120690}
   m_Layer: 0
   m_Name: Lance
   m_TagString: Untagged
@@ -218,34 +218,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1998755360938069088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 978235844193205966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 768ad5f7a63245b489dffd12737021ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletSpeed: 5
-  shotgunBullet: 5
-  lanceSpeed: 10
-  Explode: {fileID: 3521028388216535397, guid: 73fa29b238860e44a9538824e70af93a, type: 3}
-  MPCost: 30
-  prefabExp: {fileID: 1887898322871059740, guid: b3af23cb85b0fe34882465c81edbc10e, type: 3}
-  LaunchOffset: {x: 0, y: 0, z: 0}
-  targetTag: Enemy
-  Dagger: 0
-  Sword: 0
-  Lance: 1
-  Bilama: 0
-  Axe: 0
-  rightFace: 0
-  SExp: {fileID: 608053826742465972}
-  SBomb: {fileID: 2671730910773633916}
 --- !u!50 &2351614593354440497
 Rigidbody2D:
   serializedVersion: 4
@@ -279,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e58ada369179c4ab61f0610e20a8a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 3
+  lifeTime: 10
   thisObj: {fileID: 978235844193205966}
   isDash: 0
 --- !u!61 &3940427535083135545
@@ -295,19 +267,35 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.019826114}
+  m_Offset: {x: 0.84, y: -0.019826114}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 11, y: 1.77}
+    oldSize: {x: 6.21, y: 1}
     newSize: {x: 11, y: 1.77}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 11, y: 0.5407721}
+  m_Size: {x: 4.6, y: 0.5407721}
   m_EdgeRadius: 0
+--- !u!114 &7969481493265120690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 978235844193205966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de47b1dd5a1b80c44912af9950ef2325, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialSpeed: 30
+  gravity: 50
+  MPCost: 1
+  Explode: {fileID: 7866759376238776375, guid: 808ff1c2d53047f428488a13db9c4843, type: 3}
 --- !u!1 &3958311919367988182
 GameObject:
   m_ObjectHideFlags: 0

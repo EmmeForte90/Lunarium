@@ -404,6 +404,7 @@ MonoBehaviour:
   Explode: {fileID: 6353872326894538400, guid: b3af23cb85b0fe34882465c81edbc10e, type: 3}
   MPCost: 20
   prefabExp: {fileID: 1887898322871059740, guid: b3af23cb85b0fe34882465c81edbc10e, type: 3}
+  rb: {fileID: 5931401992482087296}
   LaunchOffset: {x: 0, y: 0, z: 0}
   targetTag: Enemy
   Dagger: 0
