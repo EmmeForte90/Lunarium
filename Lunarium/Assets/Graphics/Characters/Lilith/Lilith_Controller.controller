@@ -1632,13 +1632,13 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: blastAnm
+    functionName: evocationSword
     data: SpineEvent
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
-  - time: 0
+  - time: 0.1667
     functionName: evocationSword
     data: SpineEvent
     objectReferenceParameter: {fileID: 0}
@@ -1646,14 +1646,14 @@ AnimationClip:
     intParameter: 0
     messageOptions: 1
   - time: 0.3333
-    functionName: DaggerBullet
+    functionName: blastAnm
     data: SpineEvent
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 1
-  - time: 0.3333
-    functionName: blastAnm
+  - time: 0.5
+    functionName: evocationSword
     data: SpineEvent
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -6678,9 +6678,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.5
+  m_ExitTime: 0
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

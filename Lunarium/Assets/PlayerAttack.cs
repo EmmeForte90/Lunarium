@@ -101,7 +101,7 @@ public static PlayerAttack Instance
                         isAttacking = true;
                         nextAttackTime = Time.time + 1f / attackRate;
                         anim.SetTrigger("isShoot");
-                        }
+                    }
                 }
         }
 
