@@ -20,7 +20,7 @@ void OnTriggerEnter2D(Collider2D other)
             IDamegable hit = other.GetComponent<IDamegable>();
             hit.Damage(attackDamage);
         }
-        if(other.gameObject.tag == "Bound")
+        if(other.gameObject.tag == "Ground")
         //Se il proiettile tocca il nemico
         {            
             Instantiate(Clang, Pos.transform.position, transform.rotation);

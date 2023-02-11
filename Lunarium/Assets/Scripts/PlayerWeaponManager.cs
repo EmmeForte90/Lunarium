@@ -33,11 +33,15 @@ public class PlayerWeaponManager : MonoBehaviour
 
     private void Awake()
     { 
-                anim = GetComponent<Animator>();
-
+        anim = GetComponent<Animator>();
         playerShootScript = GetComponent<PlayerAttack>();
         instance = this;
         currentWeaponIndex = 1;
+        if(isDagger || isSword)
+        {
+            //playerShootScript.attackCooldown == 0.2f;
+        }
+
     }
 void Update()
 {

@@ -11,6 +11,7 @@ public class Dagger : MonoBehaviour
     [SerializeField] float MPCost = 10f;
     [SerializeField] Transform prefabExp;
     [SerializeField] int damage = 5;
+    public float rotationSpeed = 2500f;
 
     [SerializeField] float lifeTime = 0.5f;
     Rigidbody2D rb;    
@@ -38,7 +39,10 @@ public class Dagger : MonoBehaviour
         CostMP();
     // Update is called once per frame
     }
-
+private void Update()
+    {
+        transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+    }
 
 #region  MP
     void CostMP()

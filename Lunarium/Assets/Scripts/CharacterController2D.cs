@@ -18,7 +18,9 @@ public class CharacterController2D : MonoBehaviour
     private int maxJumps = 2;
     private float jumpDuration = 0.5f;
     public float fallMultiplier = 2.5f;
-
+    float coyoteTime = 0.1f;
+    float coyoteCounter = 0f;
+    bool isGrounded = true;
     private float accelerationSpeed = 100f;
 
     private float maxSpeed = 100f;
@@ -80,7 +82,6 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField] public GameplayManager gM;
     private bool IsKnockback = false;
     private bool stopInput = false;
-    private bool isGrounded = false; // vero se il personaggio sta saltando
     private bool isJumping = false; // vero se il personaggio sta saltando
     private bool isFall = false; // vero se il personaggio sta saltando
     private bool isHurt = false; // vero se il personaggio sta saltando
@@ -241,7 +242,16 @@ if (Input.GetButtonDown("Fire2"))
 
 
         // gestione dell'input del salto
-  if (Input.GetButtonDown("Jump") && jumpCounter < maxJumps)
+if (isGrounded)
+    {
+        coyoteCounter = 0f;
+    }
+    else
+    {
+        coyoteCounter += Time.deltaTime;
+    }
+
+    if (Input.GetButtonDown("Jump") && (jumpCounter < maxJumps || coyoteCounter < coyoteTime))
     {
         isJumping = true;
         isGrounded = false;

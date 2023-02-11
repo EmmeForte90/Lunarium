@@ -19,7 +19,14 @@ public class PlayerAttack : MonoBehaviour
     private float currentCooldown; // contatore del cooldown attuale
     [SerializeField] float nextAttackTime = 0f;
     [SerializeField] float attackRate = 2f;
-    [SerializeField] public float attackCooldown = 0.5f; // tempo di attesa tra gli attacchi
+
+
+
+    [SerializeField] public float attackCooldown = 0.3f; // tempo di attesa tra gli attacchi
+    //0.3 va bene per dagger e sword, 0.4 per axe, lance e bilama
+
+
+
     [SerializeField] public float comboTimer = 2f; // tempo per completare una combo
     [SerializeField] public int comboCounter = 0; // contatore delle combo
     [SerializeField] public int maxCombo = 4; // numero massimo di combo
@@ -70,12 +77,6 @@ public static PlayerAttack Instance
         private void Awake()
     { 
         Wm = GetComponent<PlayerWeaponManager>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
         Less = GetComponent<PlayerHealth>();
         rb = GetComponent<Rigidbody2D>();
         if (gM == null)
@@ -83,6 +84,11 @@ public static PlayerAttack Instance
             gM = GetComponent<GameplayManager>();
         }
         anim = GetComponent<Animator>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
         currentCooldown = attackCooldown;
     }
 
