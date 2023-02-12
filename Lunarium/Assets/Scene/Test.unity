@@ -39351,8 +39351,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveX: 0
   moveSpeed: 5
+  crouchSpeed: 2
   lerpSpeed: 4
-  runMultiplier: 3
+  runMultiplier: 2
   runThreshold: 4.9
   Hit: {fileID: 8636263285275477357}
   DashEff: {fileID: 672879388523231879, guid: 477d684ce6ff62248bf1be7a9a8fe922, type: 3}
@@ -39360,7 +39361,6 @@ MonoBehaviour:
   dashForce: 20
   dashDuration: 0.5
   dashCoolDown: 1
-  crouchSpeed: 2
   health: 100
   sceneName: 
   skeletonM: {fileID: 1671864016}
@@ -39465,8 +39465,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56db3d141bb11c647b25d9bf21039510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 5
-  fallMultiplier: 2.5
+  jumpForce: 10
+  fallMultiplier: 5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  groundCheckDistance: 1
   health: 100
   skeletonM: {fileID: 1671864016}
   Circle: {fileID: 8377799538609817746, guid: 36cd24acadc3a3242b08bf90b61abdc4, type: 3}
@@ -39474,17 +39478,12 @@ MonoBehaviour:
   DustImp: {fileID: 6759470902048583033, guid: dafcd6971711edb4790629d4097d63e7, type: 3}
   circlePoint: {fileID: 8636263283370175430}
   gM: {fileID: 8636263285274254534}
+  isLanding: 0
   rb: {fileID: 1671864024}
   blockInput: 0
-  SwSl: {fileID: 957031314347625453}
   Smagic: {fileID: 156929625}
-  Srun: {fileID: 101189439}
-  Swalk: {fileID: 1021916542}
   SGrab: {fileID: 1212033640}
-  SCrash: {fileID: 1260440074}
-  Sdash: {fileID: 8240830}
   Shop: {fileID: 1661470060}
-  Surg: {fileID: 230463934}
 --- !u!1 &1684224769
 GameObject:
   m_ObjectHideFlags: 0
@@ -47293,7 +47292,7 @@ MonoBehaviour:
   additiveMaterial: {fileID: 2100000, guid: 2e8245019faeb8c43b75f9ca3ac8ee34, type: 2}
   multiplyMaterial: {fileID: 2100000, guid: e74a1f8978a7da348a721508d0d58834, type: 2}
   screenMaterial: {fileID: 2100000, guid: bab24c479f34eec45be6ea8595891569, type: 2}
-  initialSkinName: default
+  initialSkinName: Normal
   initialFlipX: 0
   initialFlipY: 0
   startingAnimation: wait

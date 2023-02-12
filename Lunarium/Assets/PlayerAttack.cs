@@ -177,7 +177,7 @@ IEnumerator WaitBeforeNextAttack()
 void evocationSword()
 {
     //Smagic.Play();
-    Instantiate(EvocationSword, SE.transform.position, transform.rotation); 
+   //Instantiate(EvocationSword, SE.transform.position, transform.rotation); 
 
 }
 

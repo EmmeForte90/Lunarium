@@ -49,6 +49,7 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField]public float health = 100f; // salute del personaggio
     PlayerHealth Less;
     PlayerAttack Atk;
+    PlayerJump Jmp;
 
 
 
@@ -74,8 +75,6 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField] public GameplayManager gM;
     private bool IsKnockback = false;
     private bool stopInput = false;
-    private bool isJumping = false; // vero se il personaggio sta saltando
-    private bool isFall = false; // vero se il personaggio sta saltando
     private bool isHurt = false; // vero se il personaggio sta saltando
     private bool isLoop = false; // vero se il personaggio sta saltando
     private bool isAttacking = false; // vero se il personaggio sta attaccando
@@ -125,6 +124,7 @@ public static CharacterController2D Instance
         HitPosition = Hit.transform.position;
         Less = GetComponent<PlayerHealth>();
         Atk = GetComponent<PlayerAttack>();
+        Jmp = GetComponent<PlayerJump>();
         rb = GetComponent<Rigidbody2D>();
         if (gM == null)
         {
@@ -185,8 +185,8 @@ else
 }
 
 
-}
-if (Atk.isAttacking || isLanding)
+
+if (Atk.isAttacking || Jmp.isLanding)
 {
     rb.velocity = new Vector2(0f, 0f);
 }
@@ -211,7 +211,7 @@ else
     collider.offset = initialColliderOffset;
 
 }
-
+///////////////////////////////////
 
 if (moveX < 0)
 {
@@ -226,24 +226,6 @@ else if (moveX > 0)
 #endregion
 
 
-/*
-// gestione dell'input dello sparo
-if (Input.GetButtonDown("Fire2"))
-{
-    if(Less.currentMana > 0)
-        {
-    anim.SetTrigger("isShoot");
-        }
-}*/
-
-
-        // gestione dell'input del salto
-
-   
-    
-
-
-
 if (Input.GetButton("Fire3")&& !dashing && coolDownTime <= 0)
         {
             dashing = true;
@@ -256,25 +238,12 @@ if (Input.GetButton("Fire3")&& !dashing && coolDownTime <= 0)
             coolDownTime -= Time.deltaTime;
         }
 
-
-
-/*
-
-        // gestione dell'input della corsa
-        if (Input.GetButton("Fire3"))
-        {
-            isRunning = true;
-        }
-        else
-        {
-            isRunning = false;
         }
 
-        
-        }*/
+
 
         // gestione dell'input del Menu 
-        if (Input.GetKeyDown(KeyCode.Escape) && !stopInput)
+        if (Input.GetButtonDown("Pause") && !stopInput)
         {
             gM.Pause();
             stopInput = true;
@@ -282,14 +251,15 @@ if (Input.GetButton("Fire3")&& !dashing && coolDownTime <= 0)
             //SFX.Play(0);
             rb.velocity = new Vector2(0f, 0f);
         }
-        else if(Input.GetKeyDown(KeyCode.Escape) && stopInput)
+        else if(Input.GetButtonDown("Pause") && stopInput)
         {
             gM.Resume();
             stopInput = false;
         }
+
+
         // gestione dell'animazione del personaggio
         anim.SetFloat("Speed", Mathf.Abs(moveX));
-    
         anim.SetBool("IsRunning", isRunning);
         anim.SetBool("Dash", dashing);
         anim.SetBool("Crouch", isCrouching);

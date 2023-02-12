@@ -18,6 +18,9 @@ public class PlayerJump : MonoBehaviour
     float coyoteTime = 0.1f;
     float coyoteCounter = 0f;
     bool isGrounded = true;
+    public LayerMask groundLayer;
+    public float groundCheckDistance = 0.1f;
+
     [Header("HP")]
     [SerializeField]public float health = 100f; // salute del personaggio
     PlayerHealth Less;
@@ -45,21 +48,15 @@ public class PlayerJump : MonoBehaviour
     private bool isLoop = false; // vero se il personaggio sta saltando
     private bool isAttacking = false; // vero se il personaggio sta attaccando
     private bool isCrouching = false; // vero se il personaggio sta attaccando
-    private bool isLanding = false; // vero se il personaggio sta attaccando
+    public bool isLanding = false; // vero se il personaggio sta attaccando
     private bool isRunning = false; // vero se il personaggio sta correndo
     public Rigidbody2D rb; // componente Rigidbody2D del personaggio
     [SerializeField] public static bool playerExists;
     [SerializeField] public bool blockInput = false;
     [Header("Audio")]
-[SerializeField] AudioSource SwSl;
 [SerializeField] AudioSource Smagic;
-[SerializeField] AudioSource Srun;
-[SerializeField] AudioSource Swalk;
 [SerializeField] AudioSource SGrab;
-[SerializeField] AudioSource SCrash;
-[SerializeField] AudioSource Sdash;
 [SerializeField] AudioSource Shop;
-[SerializeField] AudioSource Surg;
     // Start is called before the first frame update
     void Start()
     {
@@ -74,53 +71,70 @@ public class PlayerJump : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+{
+    if (!gM.PauseStop)
     {
-        if(!gM.PauseStop)
-        {
-        if (isGrounded)
-    {
-        coyoteCounter = 0f;
-    }
-    else
-    {
-        coyoteCounter += Time.deltaTime;
-    }
+        // Utilizzare un raycast per determinare se il personaggio è su un terreno solido o meno
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
+        isGrounded = hit.collider != null;
 
-    if (Input.GetButtonDown("Jump") && (jumpCounter < maxJumps || coyoteCounter < coyoteTime))
-    {
-        isJumping = true;
-        isGrounded = false;
-        jumpCounter++;
-        rb.velocity = Vector2.up * jumpForce;
-
-        if (jumpCounter == 2)
+        // Se il personaggio non è più su un terreno solido, aumentare il contatore coyote
+        if (!isGrounded)
         {
-            Smagic.Play();
-            Instantiate(Circle, circlePoint.transform.position, transform.rotation);
+            coyoteCounter += Time.deltaTime;
+        }else
+        {
+            isFall = false;
+            isJumping = false;
+            jumpCounter = 0;
+            //StartCoroutine(stopPlayer());
         }
 
-        StartCoroutine(JumpDurationCoroutine(jumpDuration));
-    }
+        // Se il pulsante di salto viene premuto e il personaggio ha ancora salti disponibili o sta ancora entro il tempo di coyote, saltare
+        if (Input.GetButtonDown("Jump") && (jumpCounter < maxJumps || coyoteCounter < coyoteTime))
+        {
+            isJumping = true;
+            jumpCounter++;
+            rb.velocity = Vector2.up * jumpForce;
 
-    if (rb.velocity.y < 0)
-    {
-        isFall = true;
-        isLoop = true;
-        rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-    }
+            if (jumpCounter == 2)
+            {
+                Smagic.Play();
+                Instantiate(Circle, circlePoint.transform.position, transform.rotation);
+            }
 
-    if (Input.GetButtonDown("Fire1") && isJumping)
-    {
-        Atk.isAttacking = true;
-        isJumping = false;
-        isFall = true;
-        isLoop = true;
-    }
-     anim.SetBool("IsJumping", isJumping);
+            StartCoroutine(JumpDurationCoroutine(jumpDuration));
+        }
+
+        // Se la velocità verticale del personaggio è negativa, attivare la modalità di caduta
+        if (rb.velocity.y < 0)
+        {
+            isFall = true;
+            isLoop = true;
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
+
+        // Se viene premuto il pulsante di attacco e il personaggio sta saltando, attaccare
+        if (Input.GetButtonDown("Fire1") && isJumping)
+        {
+            Atk.isAttacking = true;
+            isJumping = false;
+            isFall = true;
+            isLoop = true;
+        }
+
+        anim.SetBool("IsJumping", isJumping);
         anim.SetBool("IsFall", isFall);
-        }
     }
+}
 
+#region Gizmos
+private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+    Gizmos.DrawWireSphere(transform.position, groundCheckDistance);
+    }
+#endregion
 
 
 
@@ -128,26 +142,9 @@ public class PlayerJump : MonoBehaviour
 {
 isLanding = true; 
 yield return new WaitForSeconds(0.5f);
-isLoop = false;
 isLanding = false;    
 }
 
-
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            
-            isGrounded = true; // vero se il personaggio sta saltando
-            isFall = false;
-            isJumping = false;
-            jumpCounter = 0;
-            StartCoroutine(stopPlayer());
-
-        }
-
-    }
 
     private IEnumerator JumpDurationCoroutine(float duration)
 {
