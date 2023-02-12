@@ -12,6 +12,10 @@ public class CharacterController2D : MonoBehaviour
 
     public float moveX;
     [SerializeField] public float moveSpeed = 5f; // velocità di movimento
+    [SerializeField] public float lerpSpeed = 5f; // velocità di movimento
+    public float runThreshold = 2f;
+    private float currentSpeed; // velocità corrente del personaggio
+
     [SerializeField] public float jumpForce = 5f; // forza del salto
     [SerializeField] public float runMultiplier = 2f; // moltiplicatore di velocità per la corsa
     private int jumpCounter = 0;
@@ -90,7 +94,6 @@ public class CharacterController2D : MonoBehaviour
     private bool isCrouching = false; // vero se il personaggio sta attaccando
     private bool isLanding = false; // vero se il personaggio sta attaccando
     private bool isRunning = false; // vero se il personaggio sta correndo
-    private float currentSpeed; // velocità corrente del personaggio
     public Rigidbody2D rb; // componente Rigidbody2D del personaggio
     [SerializeField] public static bool playerExists;
     [SerializeField] public bool blockInput = false;
@@ -166,29 +169,35 @@ public static CharacterController2D Instance
         {
 
         #region Move
-        moveX = Input.GetAxis("Horizontal");
-        currentSpeed = moveSpeed;
-        if (isRunning && !Atk.isAttacking)
-        {
-        if (moveX != 0)
-        {
-        if (isCrouching)
-        {
-            currentSpeed = moveSpeed * crouchSpeed;
-        }
-        else if (isRunning)
-        {
-            currentSpeed = moveSpeed * runMultiplier;
-        }
-        else
-        {
-            currentSpeed = moveSpeed;
-        }
+moveX = Input.GetAxis("Horizontal");
+
+if (moveX != 0)
+{
+    if (isCrouching)
+    {
+        currentSpeed = moveSpeed * crouchSpeed;
     }
     else
     {
-        currentSpeed = 0;
+        if (currentSpeed >= runThreshold)
+        {
+            isRunning = true;
+            currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed * runMultiplier, Time.deltaTime * lerpSpeed);
+        }
+        else if (currentSpeed < runThreshold)
+        {
+            isRunning = false;
+            currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed, Time.deltaTime * lerpSpeed);
+        }
     }
+}
+else
+{            
+    isRunning = false;
+    currentSpeed = 0;
+}
+
+
 }
 if (Atk.isAttacking || isLanding)
 {
@@ -340,7 +349,7 @@ if (Input.GetButton("Fire3")&& !dashing && coolDownTime <= 0)
 
 
     }
-    }
+    
 
     
     private void FixedUpdate()
@@ -592,9 +601,3 @@ IEnumerator WaitForSceneLoad()
     transform.position = respawnPoint.transform.position;
 }
 }
-
-
-
-           
-
-

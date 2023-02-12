@@ -45,7 +45,7 @@ public class PlayerWeaponManager : MonoBehaviour
     }
 void Update()
 {
-     if (Input.GetKey(_button) && Time.time - lastWeaponChangeTime > cooldown)
+     if (Input.GetButtonDown("Change") && Time.time - lastWeaponChangeTime > cooldown)
     {
         OnChangeWeapon();
         lastWeaponChangeTime = Time.time;

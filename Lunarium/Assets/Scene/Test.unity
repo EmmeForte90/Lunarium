@@ -39350,6 +39350,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveX: 0
   moveSpeed: 5
+  lerpSpeed: 4
+  runThreshold: 4.9
   jumpForce: 10
   runMultiplier: 3
   fallMultiplier: 5
