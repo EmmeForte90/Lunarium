@@ -39147,6 +39147,7 @@ GameObject:
   - component: {fileID: 1671864024}
   - component: {fileID: 1671864025}
   - component: {fileID: 1671864023}
+  - component: {fileID: 1671864027}
   - component: {fileID: 1671864022}
   - component: {fileID: 1671864026}
   - component: {fileID: 1671864021}
@@ -39351,12 +39352,8 @@ MonoBehaviour:
   moveX: 0
   moveSpeed: 5
   lerpSpeed: 4
-  runThreshold: 4.9
-  jumpForce: 10
   runMultiplier: 3
-  fallMultiplier: 5
-  knockbackForce: 3
-  knockbackDuration: 0.5
+  runThreshold: 4.9
   Hit: {fileID: 8636263285275477357}
   DashEff: {fileID: 672879388523231879, guid: 477d684ce6ff62248bf1be7a9a8fe922, type: 3}
   dash: {fileID: 269107503}
@@ -39456,6 +39453,38 @@ MonoBehaviour:
   SCrash: {fileID: 1260440074}
   SBilama: {fileID: 1251357387}
   SSbam: {fileID: 1736476755}
+--- !u!114 &1671864027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671864015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56db3d141bb11c647b25d9bf21039510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 5
+  fallMultiplier: 2.5
+  health: 100
+  skeletonM: {fileID: 1671864016}
+  Circle: {fileID: 8377799538609817746, guid: 36cd24acadc3a3242b08bf90b61abdc4, type: 3}
+  dust: {fileID: 7580417674744130678, guid: 64840e7ecebf19d449c8ad3a76b79102, type: 3}
+  DustImp: {fileID: 6759470902048583033, guid: dafcd6971711edb4790629d4097d63e7, type: 3}
+  circlePoint: {fileID: 8636263283370175430}
+  gM: {fileID: 8636263285274254534}
+  rb: {fileID: 1671864024}
+  blockInput: 0
+  SwSl: {fileID: 957031314347625453}
+  Smagic: {fileID: 156929625}
+  Srun: {fileID: 101189439}
+  Swalk: {fileID: 1021916542}
+  SGrab: {fileID: 1212033640}
+  SCrash: {fileID: 1260440074}
+  Sdash: {fileID: 8240830}
+  Shop: {fileID: 1661470060}
+  Surg: {fileID: 230463934}
 --- !u!1 &1684224769
 GameObject:
   m_ObjectHideFlags: 0

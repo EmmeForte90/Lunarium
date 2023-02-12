@@ -12,25 +12,14 @@ public class CharacterController2D : MonoBehaviour
 
     public float moveX;
     [SerializeField] public float moveSpeed = 5f; // velocità di movimento
+    public float crouchSpeed = 2f;
     [SerializeField] public float lerpSpeed = 5f; // velocità di movimento
+    [SerializeField] public float runMultiplier = 2f; // moltiplicatore di velocità per la corsa
     public float runThreshold = 2f;
     private float currentSpeed; // velocità corrente del personaggio
-
-    [SerializeField] public float jumpForce = 5f; // forza del salto
-    [SerializeField] public float runMultiplier = 2f; // moltiplicatore di velocità per la corsa
-    private int jumpCounter = 0;
-    private int maxJumps = 2;
-    private float jumpDuration = 0.5f;
-    public float fallMultiplier = 2.5f;
-    float coyoteTime = 0.1f;
-    float coyoteCounter = 0f;
-    bool isGrounded = true;
     private float accelerationSpeed = 100f;
-
     private float maxSpeed = 100f;
 
-    public float knockbackForce = 10f;
-    public float knockbackDuration = 0.5f;
 
     Vector2 playerPosition;
     Vector2 HitPosition;
@@ -49,7 +38,6 @@ public class CharacterController2D : MonoBehaviour
 
     public float dashCoolDown = 1f;
     private float coolDownTime;
-    public float crouchSpeed = 2f;
     
     CapsuleCollider2D collider;
     private Vector2 initialColliderSize;
@@ -133,7 +121,6 @@ public static CharacterController2D Instance
         crouchedColliderSize = new Vector2(initialColliderSize.x, initialColliderSize.y / 2);
         initialColliderOffset = collider.offset;
         crouchedColliderOffset = new Vector2(initialColliderOffset.x, initialColliderOffset.y - 1f);
-        isGrounded = true; // vero se il personaggio sta saltando
         playerPosition = transform.position;
         HitPosition = Hit.transform.position;
         Less = GetComponent<PlayerHealth>();
@@ -209,7 +196,7 @@ else
 }
 
 /////////////////////////////////
-if (Input.GetKey(KeyCode.S))
+if (Input.GetButton("Vertical"))
 {
     isCrouching = true;
     collider.size = crouchedColliderSize;
@@ -251,46 +238,7 @@ if (Input.GetButtonDown("Fire2"))
 
 
         // gestione dell'input del salto
-if (isGrounded)
-    {
-        coyoteCounter = 0f;
-    }
-    else
-    {
-        coyoteCounter += Time.deltaTime;
-    }
 
-    if (Input.GetButtonDown("Jump") && (jumpCounter < maxJumps || coyoteCounter < coyoteTime))
-    {
-        isJumping = true;
-        isGrounded = false;
-        jumpCounter++;
-        rb.velocity = Vector2.up * jumpForce;
-
-        if (jumpCounter == 2)
-        {
-            Smagic.Play();
-            Instantiate(Circle, circlePoint.transform.position, transform.rotation);
-        }
-
-        StartCoroutine(JumpDurationCoroutine(jumpDuration));
-    }
-
-    if (rb.velocity.y < 0)
-    {
-        isFall = true;
-        isLoop = true;
-        rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-    }
-
-    if (Input.GetButtonDown("Fire1") && isJumping)
-    {
-        Atk.isAttacking = true;
-        isJumping = false;
-        isFall = true;
-        isLoop = true;
-    }
-     
    
     
 
@@ -341,8 +289,7 @@ if (Input.GetButton("Fire3")&& !dashing && coolDownTime <= 0)
         }
         // gestione dell'animazione del personaggio
         anim.SetFloat("Speed", Mathf.Abs(moveX));
-        anim.SetBool("IsJumping", isJumping);
-        anim.SetBool("IsFall", isFall);
+    
         anim.SetBool("IsRunning", isRunning);
         anim.SetBool("Dash", dashing);
         anim.SetBool("Crouch", isCrouching);
@@ -426,32 +373,9 @@ if (Input.GetButton("Fire3")&& !dashing && coolDownTime <= 0)
         }
     }
 
-private IEnumerator JumpDurationCoroutine(float duration)
-{
-    float timer = 0f;
-    while (timer < duration)
-    {
-        timer += Time.deltaTime;
-        yield return null;
-    }
 
-    isJumping = false;
-}
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            
-            isGrounded = true; // vero se il personaggio sta saltando
-            isFall = false;
-            isJumping = false;
-            jumpCounter = 0;
-            StartCoroutine(stopPlayer());
-
-        }
-
-    }
+    
 
 private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -480,13 +404,6 @@ private void OnTriggerEnter2D(Collider2D collision)
 
 
 
-IEnumerator stopPlayer()
-{
-isLanding = true; 
-yield return new WaitForSeconds(0.5f);
-isLoop = false;
-isLanding = false;    
-}
 
 public void AnmHurt()
 {
