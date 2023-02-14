@@ -12,20 +12,28 @@ public class HitboxPlayer : MonoBehaviour
 
 
 void OnTriggerEnter2D(Collider2D other) 
-    {
-        if(other.gameObject.tag == "Enemy")
-        //Se il proiettile tocca il nemico
-        {       
-            Instantiate(Sdeng, Pos.transform.position, transform.rotation);
-            IDamegable hit = other.GetComponent<IDamegable>();
-            hit.Damage(attackDamage);
+{
+    if(other.gameObject.tag == "Enemy")
+    //Se il proiettile tocca il nemico
+    {       
+        Instantiate(Sdeng, Pos.transform.position, transform.rotation);
+        IDamegable hit = other.GetComponent<IDamegable>();
+        hit.Damage(attackDamage);
+
+        // Qui applica il knockback
+        Enemy enemy = other.GetComponent<Enemy>();
+        if(enemy != null)
+        {
+            Vector2 knockbackDirection = (other.transform.position - transform.position).normalized;
+            player.rb.velocity = knockbackDirection * enemy.knockbackForce;
         }
-        if(other.gameObject.tag == "Ground")
-        //Se il proiettile tocca il nemico
-        {            
-            Instantiate(Clang, Pos.transform.position, transform.rotation);
-        }
-        }
+    }
+    if(other.gameObject.tag == "Ground")
+    //Se il proiettile tocca il nemico
+    {            
+        //Instantiate(Clang, Pos.transform.position, transform.rotation);
+    }
+}
         
 
         

@@ -17,6 +17,7 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("Attacks")]
     private float currentCooldown; // contatore del cooldown attuale
+    public float comboPauseDuration; // contatore del cooldown attuale
     [SerializeField] float nextAttackTime = 0f;
     [SerializeField] float attackRate = 2f;
 
@@ -32,6 +33,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] public int maxCombo = 4; // numero massimo di combo
     [SerializeField] public float shootTimer = 2f; // tempo per completare una combo
     [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject evocation;
+
 
     public Transform slashpoint;
     private SkeletonMecanim skeletonMecanim;
@@ -153,6 +156,8 @@ void Attack()
     }
 }
 
+
+
 IEnumerator WaitBeforeNextAttack()
 {
     shootTimer = 0.5f;
@@ -161,6 +166,7 @@ IEnumerator WaitBeforeNextAttack()
         shootTimer -= Time.deltaTime;
         yield return null;
     }
+    yield return new WaitForSeconds(comboPauseDuration);
 }
 
     void blastAnm()
@@ -214,6 +220,14 @@ public void SetBulletPrefab(GameObject newBullet)
 //Funzione per cambiare arma
 {
     bullet = newBullet;
+}   
+#endregion
+
+#region CambioMagia
+public void SetEvPrefab(GameObject newEv)
+//Funzione per cambiare arma
+{
+    evocation = newEv;
 }   
 #endregion
 }

@@ -46,6 +46,35 @@ public class ChangeWeaponAnimation : MonoBehaviour
     }
 }
 
+public void ChangeEv(int id)
+{
+    StartCoroutine(SetAnimationChange()); 
+
+    switch (id)
+    {
+        case 0:
+        case 1:
+            SetSkin("Bat");
+            break;
+        case 2:
+            SetSkin("Golem");
+            break;
+        case 3:
+            SetSkin("Knight");
+            break;
+        case 4:
+            SetSkin("Healer");
+            break;
+        case 5:
+            SetSkin("Unicorn");
+            break;
+        case 6:
+            SetSkin("Dragon");
+            break;
+    }
+}
+
+
 private void SetSkin(string skinName)
 {
     var skeleton = skelGraph.Skeleton;

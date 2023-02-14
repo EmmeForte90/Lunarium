@@ -15,7 +15,7 @@ public class Skeleton : Health, IDamegable
     private Transform target;
     private Animator animator;
     private bool movingToA = false;
-        private bool isKnockback = false;
+    private bool isKnockback = false;
 
     Health health;
     Rigidbody2D rb;
@@ -78,16 +78,19 @@ private State currentState;
             switch (currentState)
             {
                 case State.Move:
-                    Move();
-                    break; 
+                if(!isKnockback)
+                {
+                Move();
+                }
+                break; 
                 case State.Chase:
-                    ChasePlayer();
-                    break;
-                case State.Knockback:
-                    Knockback();
-                    break;
+                if(!isKnockback)
+                {
+                ChasePlayer();
+                }
+                break;
                 case State.Dead:
-                    break;
+                break;
             }
 
         
@@ -96,6 +99,7 @@ private State currentState;
 
     void Move()
     {
+    
 
         animator.SetBool("isMove", true);
     //animator.SetBool("isChasing", false); // imposta la variabile booleana "IsChasing" dell'animatore a true
@@ -173,14 +177,6 @@ private void ChasePlayer()
         }
     }
 
-    private void Knockback()
-    {
-        if (rb.velocity.magnitude <= 0.1f)
-        {
-            currentState = State.Move;
-        }
-    }
-
     
 
 
@@ -235,13 +231,13 @@ public void DeathAnim()
 }
 public void Damage(int damage)
     {
+        isKnockback = true;
         health.currentHealth -= damage;
         anmHurt();
-
         /////////////////////////
         knockbackTimer = knockbackDuration;
-    Vector2 knockbackDirection = (transform.position - player.transform.position).normalized;
-    rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+        Vector2 knockbackDirection = (transform.position - player.transform.position).normalized;
+        rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
         
     }
 
@@ -250,7 +246,7 @@ public void anmHurt()
     StartCoroutine(TemporaryChangeColor(Color.red));
     
         animator.SetTrigger("TakeDamage"); // attiva il trigger "TakeDamage" dell'animatore
-    
+        
     if (rb != null)
         {
             //StartCoroutine(JumpBackCo(rb)); // avvia la routine per il salto
@@ -278,6 +274,8 @@ private IEnumerator ResetColor()
 {
     float t = 0;
     Color currentColor = skeletonMecanim.Skeleton.GetColor();
+    isKnockback = false;
+
     while (t < 1)
     {
         t += Time.deltaTime / colorChangeDuration;

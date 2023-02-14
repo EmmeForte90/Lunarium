@@ -9,16 +9,16 @@ using UnityEngine.Audio;
 public class CharacterController2D : MonoBehaviour
 {
     [Header("Move")]
+    public float moveX; 
+    public float speed = 5f;
+    public float runSpeed = 10.0f;
+    private float runThreshold = 1f;
+    private float runFactor = 0.0f;
+    public float maxSpeed;
+    public bool isRunning;
 
-    public float moveX;
-    [SerializeField] public float moveSpeed = 5f; // velocità di movimento
-    public float crouchSpeed = 2f;
-    [SerializeField] public float lerpSpeed = 5f; // velocità di movimento
-    [SerializeField] public float runMultiplier = 2f; // moltiplicatore di velocità per la corsa
-    public float runThreshold = 2f;
     private float currentSpeed; // velocità corrente del personaggio
     private float accelerationSpeed = 100f;
-    private float maxSpeed = 100f;
 
 
     Vector2 playerPosition;
@@ -44,6 +44,7 @@ public class CharacterController2D : MonoBehaviour
     private Vector2 crouchedColliderSize;
     private Vector2 initialColliderOffset;
     private Vector2 crouchedColliderOffset;
+    public Vector2 direction;
 
     [Header("HP")]
     [SerializeField]public float health = 100f; // salute del personaggio
@@ -80,7 +81,6 @@ public class CharacterController2D : MonoBehaviour
     private bool isAttacking = false; // vero se il personaggio sta attaccando
     private bool isCrouching = false; // vero se il personaggio sta attaccando
     private bool isLanding = false; // vero se il personaggio sta attaccando
-    private bool isRunning = false; // vero se il personaggio sta correndo
     public Rigidbody2D rb; // componente Rigidbody2D del personaggio
     [SerializeField] public static bool playerExists;
     [SerializeField] public bool blockInput = false;
@@ -156,33 +156,33 @@ public static CharacterController2D Instance
         {
 
         #region Move
-moveX = Input.GetAxis("Horizontal");
 
-if (moveX != 0)
-{
-    if (isCrouching)
-    {
-        currentSpeed = moveSpeed * crouchSpeed;
-    }
-    else
-    {
-        if (currentSpeed >= runThreshold)
+
+
+      moveX = Input.GetAxis("Horizontal");
+
+        runFactor += Time.deltaTime;
+        runFactor = Mathf.Min(runFactor, 5.0f);
+
+        float currentSpeed = speed;
+        if (runFactor >= runThreshold)
         {
+            currentSpeed = runSpeed;
             isRunning = true;
-            currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed * runMultiplier, Time.deltaTime * lerpSpeed);
         }
-        else if (currentSpeed < runThreshold)
+        if  (moveX == 0)
         {
+            runFactor = 0;
             isRunning = false;
-            currentSpeed = Mathf.Lerp(currentSpeed, moveSpeed, Time.deltaTime * lerpSpeed);
         }
-    }
-}
-else
-{            
-    isRunning = false;
-    currentSpeed = 0;
-}
+
+        transform.position = transform.position + new Vector3(moveX * currentSpeed * Time.deltaTime, 0, 0);
+    
+
+
+
+
+
 
 
 

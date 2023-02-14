@@ -2,6 +2,8 @@ skeleton.png
 size:2048,1024
 filter:Linear,Linear
 pma:true
+CC
+bounds:1514,908,57,100
 DJ_00000
 bounds:2,758,250,250
 DJ_00001

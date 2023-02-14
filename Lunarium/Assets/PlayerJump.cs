@@ -15,6 +15,7 @@ public class PlayerJump : MonoBehaviour
     private int maxJumps = 2;
     private float jumpDuration = 0.5f;
     public float fallMultiplier = 2.5f;
+    [SerializeField] public float jumpHeight = 2f;
     float coyoteTime = 0.1f;
     float coyoteCounter = 0f;
     bool isGrounded = true;
@@ -86,8 +87,7 @@ public class PlayerJump : MonoBehaviour
         {
             isFall = false;
             isJumping = false;
-            jumpCounter = 0;
-            //StartCoroutine(stopPlayer());
+            
         }
 
         // Se il pulsante di salto viene premuto e il personaggio ha ancora salti disponibili o sta ancora entro il tempo di coyote, saltare
@@ -95,10 +95,11 @@ public class PlayerJump : MonoBehaviour
         {
             isJumping = true;
             jumpCounter++;
-            rb.velocity = Vector2.up * jumpForce;
-
+            rb.velocity = Vector2.up * Mathf.Sqrt(jumpHeight * -2f * Physics2D.gravity.y);
+            
             if (jumpCounter == 2)
             {
+                anim.SetTrigger("DoubleJ");
                 Smagic.Play();
                 Instantiate(Circle, circlePoint.transform.position, transform.rotation);
             }
@@ -136,7 +137,14 @@ private void OnDrawGizmos()
     }
 #endregion
 
-
+void OnCollisionEnter2D(Collision2D collision) 
+{
+    if(collision.gameObject.tag == "Ground")
+    {
+        jumpCounter = 0;
+        StartCoroutine(stopPlayer());
+    }
+}
 
     IEnumerator stopPlayer()
 {

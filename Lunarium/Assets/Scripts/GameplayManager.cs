@@ -13,7 +13,7 @@ public class GameplayManager : MonoBehaviour
 
 
     public static bool playerExists;
-    
+    public int targetFrameRate = 60;
     private GameObject player; // Variabile per il player
     public static GameplayManager instance;
     private CinemachineVirtualCamera virtualCamera;
@@ -56,7 +56,7 @@ public class GameplayManager : MonoBehaviour
 
     private void Awake()
     {
-        
+            Application.targetFrameRate = targetFrameRate;
             Potions = maxPotions;
         player = GameObject.FindWithTag("Player");
 virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
