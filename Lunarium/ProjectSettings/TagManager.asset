@@ -17,6 +17,8 @@ TagManager:
   - Bound
   - Chest
   - Edge
+  - Coin
+  - Potion
   layers:
   - Default
   - TransparentFX
@@ -30,8 +32,8 @@ TagManager:
   - Enemy
   - Hitbox
   - Respawn
-  - 
-  - 
+  - Coin
+  - Potion
   - 
   - 
   - 

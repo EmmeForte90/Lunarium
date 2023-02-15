@@ -11,7 +11,6 @@ public class Skeleton : Health, IDamegable
     public float moveSpeed = 2f;
     public float attackRadius = 1f;
     public GameObject Brain;
-    private int currentWaypointIndex = 0;
     private Transform target;
     private Animator animator;
     private bool movingToA = false;
@@ -21,34 +20,25 @@ public class Skeleton : Health, IDamegable
     Rigidbody2D rb;
     GameplayManager gM;
     private Transform player;
-public float attackrange = 2f;
-private float attackTimer;
-public float attackCooldown = 2f; // durata del cooldown dell'attacco
-private SkeletonMecanim skeletonMecanim;
-private Color originalColor;
- public float knockbackForce = 5.0f;
-public float knockbackDuration = 0.5f;
-private float knockbackTimer;
+    public float attackrange = 2f;
+    private SkeletonMecanim skeletonMecanim;
+    private Color originalColor;
 
     [SerializeField] GameObject DeathBack;
     [SerializeField] GameObject Death;
- private float pauseDuration = 1f; // durata della pausa
-private float pauseTimer; // timer per la pausa
-  private bool IsAttacking = false; // indica se il nemico sta inseguendo il player
+    private float pauseDuration = 1f; // durata della pausa
+    private float pauseTimer; // timer per la pausa
+    private bool IsAttacking = false; // indica se il nemico sta inseguendo il player
     [SerializeField] bool isLittle = false; // indica se il nemico sta inseguendo il player
-public float colorChangeDuration = 0.5f;
+    public float colorChangeDuration = 0.5f;
 
-[Header("Audio")]
-[SerializeField] AudioSource SwSl;
-[SerializeField] AudioSource SDie;
-    public float raycastRange;
-    public LayerMask playerLayer;
-
-    private Vector2 direction;
+    [Header("Audio")]
+    [SerializeField] AudioSource SwSl;
+    [SerializeField] AudioSource SDie;
 
 
 
-private enum State { Move, Attack, Chase, Knockback, Dead }
+private enum State { Move, Attack, Follow, Knockback, Dead }
 private State currentState;
 
     void Awake()
@@ -78,18 +68,24 @@ private State currentState;
             switch (currentState)
             {
                 case State.Move:
-                if(!isKnockback)
-                {
+                
                 Move();
-                }
+        
                 break; 
-                case State.Chase:
-                if(!isKnockback)
-                {
+                case State.Follow:
+                
                 ChasePlayer();
-                }
+                
+                break;
+                case State.Knockback:
+                
+                theKnockback();
+                
                 break;
                 case State.Dead:
+                
+
+
                 break;
             }
 
@@ -105,7 +101,7 @@ private State currentState;
     //animator.SetBool("isChasing", false); // imposta la variabile booleana "IsChasing" dell'animatore a true
         if (movingToA)
         {
-            transform.localScale = new Vector2(-1f, 1f);
+            transform.localScale = new Vector2(1f, 1f);
             if (pauseTimer > 0)
             {
                 animator.SetBool("isMove", false);
@@ -122,7 +118,7 @@ private State currentState;
         }
         else
         {
-            transform.localScale = new Vector2(1f, 1f);
+            transform.localScale = new Vector2(-1f, 1f);
             if (pauseTimer > 0)
             {
                 animator.SetBool("isMove", false);
@@ -150,16 +146,16 @@ private void CheckState()
         return;
     }
 
-    if (knockbackTimer > 0)
-{
-    return;
-}
+   
 
-    if (Vector2.Distance(transform.position, player.position) < attackrange)
+     if (Vector2.Distance(transform.position, player.position) < attackrange)
     {
-        currentState = State.Chase;
+        currentState = State.Follow; // switch to Follow state if player is within attack range
         return;
-    } 
+    }else
+    {
+        animator.SetBool("isRunning", false);
+    }
 
 
     currentState = State.Move;
@@ -168,17 +164,15 @@ private void CheckState()
 
 private void ChasePlayer()
     {
-        rb.velocity = direction * moveSpeed;
-
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, raycastRange, playerLayer);
-        if (hit.collider == null || !hit.collider.CompareTag("Player"))
-        {
-            currentState = State.Move;
-        }
+    animator.SetBool("isRunning", true);
+    transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * 2 * Time.deltaTime); // double the speed
     }
 
     
+private void theKnockback()
+    {
 
+    }
 
     void LookAtPlayer()
     {
@@ -200,7 +194,7 @@ private void ChasePlayer()
 private void OnDrawGizmos()
     {
     Gizmos.color = Color.red;
-    Gizmos.DrawWireSphere(transform.position, raycastRange);
+    Gizmos.DrawWireSphere(transform.position, attackrange);
     }
 #endregion
 
@@ -234,10 +228,7 @@ public void Damage(int damage)
         isKnockback = true;
         health.currentHealth -= damage;
         anmHurt();
-        /////////////////////////
-        knockbackTimer = knockbackDuration;
-        Vector2 knockbackDirection = (transform.position - player.transform.position).normalized;
-        rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+        
         
     }
 

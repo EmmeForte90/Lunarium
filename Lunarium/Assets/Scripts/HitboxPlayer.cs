@@ -20,18 +20,7 @@ void OnTriggerEnter2D(Collider2D other)
         IDamegable hit = other.GetComponent<IDamegable>();
         hit.Damage(attackDamage);
 
-        // Qui applica il knockback
-        Enemy enemy = other.GetComponent<Enemy>();
-        if(enemy != null)
-        {
-            Vector2 knockbackDirection = (other.transform.position - transform.position).normalized;
-            player.rb.velocity = knockbackDirection * enemy.knockbackForce;
-        }
-    }
-    if(other.gameObject.tag == "Ground")
-    //Se il proiettile tocca il nemico
-    {            
-        //Instantiate(Clang, Pos.transform.position, transform.rotation);
+        
     }
 }
         

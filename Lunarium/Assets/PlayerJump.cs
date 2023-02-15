@@ -13,7 +13,7 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] public float jumpForce = 5f; // forza del salto
     private int jumpCounter = 0;
     private int maxJumps = 2;
-    private float jumpDuration = 0.5f;
+    private float jumpDuration = 2f;
     public float fallMultiplier = 2.5f;
     [SerializeField] public float jumpHeight = 2f;
     float coyoteTime = 0.1f;
